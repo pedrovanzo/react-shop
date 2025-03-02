@@ -1,7 +1,5 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import "./../../App.css";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 export default function Options() {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
