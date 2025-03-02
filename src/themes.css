@@ -1,0 +1,15 @@
+/* RED THEME */
+[data-theme-ordinal="red"] {
+  --color-primary: oklch(62.8% 0.258 29.23);
+  --color-secondary: oklch(95.53% 0.009 17.31);
+}
+/* BLUE THEME */
+[data-theme-ordinal="blue"] {
+  --color-primary: oklch(38.21% 0.265 264.05);
+  --color-secondary: oklch(89.44% 0.027 285.84);
+}
+/* GREEN THEME */
+[data-theme-ordinal="green"] {
+  --color-primary: oklch(51.98% 0.177 142.5);
+  --color-secondary: oklch(93.59% 0.032 145.31);
+}
