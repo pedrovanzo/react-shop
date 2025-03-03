@@ -5,9 +5,9 @@ import NotFound from "./pages/notFound/page";
 import Products from "./pages/products/page";
 import Options from "./pages/options/page";
 import Navbar from "./components/navigation/navbar";
+import Product from "./pages/product/page";
 
 function App() {
- 
   return (
     <>
       <BrowserRouter>
@@ -16,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/product/:id" element={<Product />} />
           <Route path="/options" element={<Options />} />
         </Routes>
       </BrowserRouter>
