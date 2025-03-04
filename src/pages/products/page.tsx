@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import dataList from "./../../data/productsList.json";
 export default function Products() {
   const productsList = dataList;
-
   return (
     <>
       <ul className="flex flex-col gap-4">
