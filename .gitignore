@@ -25,3 +25,7 @@ dist-ssr
 
 # Envorinment variables
 .env*
+
+# Firebase
+.firebase*
+firebase*

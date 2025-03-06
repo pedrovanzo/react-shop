@@ -26,7 +26,6 @@ export default function Home() {
 
   return (
     <>
-      {console.log("FROM UI", products)}
       <ul className="flex flex-col gap-4">
         {products.length != 0 ? (
           products.map((product: any, index) => {

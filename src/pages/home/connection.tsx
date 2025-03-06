@@ -6,7 +6,6 @@ const fetchData = async () => {
     const querySnapshot = await getDocs(dbQuery)
     if (querySnapshot !== null) {
         const allDocs = querySnapshot.docs
-        console.log("ALLDOCS???", allDocs)
         return allDocs
     } else {
       console.log("Document not found!");
