@@ -9,6 +9,7 @@ import Product from "./pages/product/page";
 import SignIn from "./pages/authentication/signin/page";
 import SignUp from "./pages/authentication/signup/page";
 import { FirebaseAuthProvider, useFirebaseAuth } from "./contexts/auth";
+import LoadingDash from "./components/loading/dash";
 
 // initialize firebase
 
@@ -36,8 +37,8 @@ function App() {
 }
 
 function UseremailFB() {
-  const user = useFirebaseAuth();
-  return <div>{user?.email || "unauthenticated"}</div>;
+  const { user, userIsLoading } = useFirebaseAuth();
+  return (<>{userIsLoading ? <LoadingDash classes="w-40 my-2" /> : <div className="my-1 text-default leading-none">{user?.email || "unauthenticated"}</div>}</>);
 }
 
 export default App;

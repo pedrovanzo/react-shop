@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "./connection";
+import LoadingSpinner from "../../components/loading/spinner";
 export default function Home() {
   const [products, setProducts] = useState([null]);
   const [loading, setLoading] = useState(true);
@@ -18,14 +19,17 @@ export default function Home() {
       }
 
       setLoading(false);
+      // setLoading(true)
     });
   }, []);
 
-  if (loading) return <p className="text-default">Loading...</p>;
+
+  if (loading) return <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center"><LoadingSpinner /></div>;
   if (error) return <p className="text-default">Error: {error}</p>;
 
   return (
     <>
+    {/* <LoadingSpinner /> */}
       <ul className="flex flex-col gap-4">
         {products.length != 0 ? (
           products.map((product: any, index) => {

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useFirebaseAuth, authSignout } from "../../contexts/auth";
+import LoadingDash from "../loading/dash";
 export default function Navbar() {
-  const user = useFirebaseAuth();
-  console.log(user);
+  const { user, userIsLoading } = useFirebaseAuth();
   return (
     <>
       <nav className="mb-4">
@@ -10,33 +10,43 @@ export default function Navbar() {
           <li>
             <Link to={{ pathname: "/" }}>home</Link>
           </li>
-          <li>dashboard</li>
-          <li>
-            <Link to={{ pathname: "/products" }}>products</Link>
-          </li>
-          <li>cart</li>
-          <li>checkout</li>
-          <li>
-            <Link to={{ pathname: "/options" }}>options</Link>
-          </li>
-          {user ? (
+
+          {userIsLoading ? (
             <>
-              <li>
-                <button className="text-default" onClick={authSignout}>
-                  sign out
-                </button>
-              </li>
+              <LoadingDash classes="my-auto w-30" />
             </>
           ) : (
             <>
-              <li>
-                <Link to={{ pathname: "/signin" }}>sign in</Link>
-              </li>
-              <li>
-                <Link to={{ pathname: "/signup" }}>sign up</Link>
-              </li>
+              {user ? (
+                <>
+                  <li>dashboard</li>
+                  <li>
+                    <Link to={{ pathname: "/products" }}>products</Link>
+                  </li>
+                  <li>cart</li>
+                  <li>checkout</li>
+
+                  <li>
+                    <button className="text-default" onClick={authSignout}>
+                      sign out
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to={{ pathname: "/signin" }}>sign in</Link>
+                  </li>
+                  <li>
+                    <Link to={{ pathname: "/signup" }}>sign up</Link>
+                  </li>
+                </>
+              )}
             </>
           )}
+          <li>
+            <Link to={{ pathname: "/options" }}>options</Link>
+          </li>
         </ul>
       </nav>
     </>

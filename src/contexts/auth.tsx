@@ -4,19 +4,21 @@ import { firebaseApp } from "../data/firebase";
 import firebase from "firebase/compat/app";
 
 type User = firebase.User | null;
-type ContextState = { user: User };
+type ContextState = { user: User; userIsLoading: boolean };
 const auth = getAuth(firebaseApp);
 
 const FirebaseAuthContext = createContext<ContextState | undefined>(undefined);
 const FirebaseAuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<firebase.User | null>(null);
-  const value = { user };
+  const [userIsLoading, setUserIsLoading] = useState<boolean>(true);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser: any) => {
       setUser(currentUser);
+      setUserIsLoading(false);
     });
     return () => unsubscribe();
   }, []);
+  const value = { user, userIsLoading };
   return (
     <FirebaseAuthContext.Provider value={value}>
       {children}
@@ -30,7 +32,7 @@ function useFirebaseAuth() {
       "useFirebaseAuth must be used within a FirebaseAuthProvider"
     );
   }
-  return context.user;
+  return context;
 }
 const authSignout = async () => {
   console.log("Signed out");
