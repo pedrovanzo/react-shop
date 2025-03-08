@@ -1,58 +1,68 @@
-import { useState, useEffect } from "react";
-import {
-  createAccount,
-  checkUser,
-} from "../../../data/auth";
+import { useState } from "react";
+import { createAccount } from "../../../data/auth";
+import { useFirebaseAuth } from "../../../contexts/auth";
+import LoadingSpinner from "../../../components/loading/spinner";
 
 export default function SignUp() {
-  const user: any = checkUser();
-  const [userData, setUserData]: any = useState(null);
+  const { user, userIsLoading } = useFirebaseAuth();
+  const [signUpLoading, setSignUpLoading] = useState<boolean>(false);
   function handleCreateAccount() {
-    createAccount();
+    setSignUpLoading(true);
+    createAccount().then(() => {
+      setSignUpLoading(false);
+    });
   }
-  useEffect(() => {
-    if (user) {
-      setUserData(user);
-    } else {
-      setUserData(null);
-    }
-  }, [user]);
+  if (userIsLoading)
+    return (
+      <>
+        <LoadingSpinner />
+      </>
+    );
   return (
     <>
       <div>TESTING: `firebase emulators:start --only auth`</div>
-      {userData ? (
-        <>
-          Welcome, {userData.email}
-          otherline
-        </>
-      ) : (
-        <>
-          <div className="max-w-[512px] flex flex-col gap-4">
-            <p className="text-default">register</p>
-            <input
-              type="text"
-              placeholder="email"
-              className="outline outline-slate-500 p-1 rounded"
-            />
-            <input
-              type="password"
-              placeholder="password"
-              className="outline outline-slate-500 p-1 rounded"
-            />
-            <button
-              type="button"
-              className="p-2 bg-blue-500 text-contrast"
-              data-signup
-              onClick={(e) => {
-                e.preventDefault();
-                handleCreateAccount();
-              }}
-            >
-              Sign Up
-            </button>
-          </div>
-        </>
-      )}
+      <div className="relative w-fit min-w-lg">
+        {signUpLoading ? (
+          <>
+            <div className="absolute inset-0 flex items-center justify-center bg-contrast/90">
+              <LoadingSpinner text="signing up..." />
+            </div>
+          </>
+        ) : null}
+        {user ? (
+          <>
+            Welcome, {user.email}
+            otherline
+          </>
+        ) : (
+          <>
+            <div className="max-w-[512px] flex flex-col gap-4">
+              <p className="text-default">register</p>
+              <input
+                type="text"
+                placeholder="email"
+                className="border border-slate-500 p-1 rounded"
+              />
+              <input
+                type="password"
+                placeholder="password"
+                className="border border-slate-500 p-1 rounded"
+              />
+              <button
+                type="button"
+                className="p-2 bg-blue-500 text-contrast"
+                data-signup
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCreateAccount();
+                }}
+              >
+                Sign Up
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 }

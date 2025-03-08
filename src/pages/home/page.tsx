@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
 
-  if (loading) return <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center"><LoadingSpinner /></div>;
+  if (loading) return <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center"><LoadingSpinner text="loading..." /></div>;
   if (error) return <p className="text-default">Error: {error}</p>;
 
   return (
