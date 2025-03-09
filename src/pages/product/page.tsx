@@ -1,11 +1,27 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
-import dataList from "./../../data/productsList.json";
 import { useFirebaseAuth } from "../../contexts/auth";
+import { fetchData } from "./connection";
+import { useEffect, useState } from "react";
+import LoadingSpinner from "../../components/loading/spinner";
 export default function Product() {
   const navigate = useNavigate();
-  const { id }: any = useParams();
-  const product = dataList.find((p) => p.productId === parseInt(id));
-  const user = useFirebaseAuth();
+  let id: any;
+  id = useParams();
+  const { user, userIsLoading } = useFirebaseAuth();
+  const [product, setProduct] = useState<any>();
+  const [isDocLoading, setIsDocLoading] = useState<boolean>(true);
+  useEffect(() => {
+    fetchData(id).then((res) => {
+      setProduct(res);
+      setIsDocLoading(false);
+    });
+  }, []);
+  if (isDocLoading)
+    return (
+      <div className="absolute inset-0 w-full h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
   return (
     <>
       <div>
@@ -23,12 +39,18 @@ export default function Product() {
       <div className="text-default">
         Year of build: {product?.productYearOfProduction}
       </div>
-      {user ? (
-        <button className="py-1 px-2 bg-blue-500 text-white rounded-md">
-          Add to cart
-        </button>
+      {userIsLoading ? (
+        <LoadingSpinner text="loading user" />
       ) : (
-        <Link to={{ pathname: "/signin" }}>Sign in</Link>
+        <>
+          {user ? (
+            <button className="py-1 px-2 bg-blue-500 text-white rounded-md">
+              Add to cart
+            </button>
+          ) : (
+            <Link to={{ pathname: "/signin" }}>Sign in</Link>
+          )}
+        </>
       )}
       <div>
         <button
@@ -37,7 +59,7 @@ export default function Product() {
           }}
           className="text-default"
         >
-          return to products list
+          return
         </button>
       </div>
     </>

@@ -47,6 +47,9 @@ export default function Navbar() {
           <li>
             <Link to={{ pathname: "/options" }}>options</Link>
           </li>
+          <li>
+            <Link to={{ pathname: "/sandbox" }}>sandbox</Link>
+          </li>
         </ul>
       </nav>
     </>

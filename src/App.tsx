@@ -8,8 +8,8 @@ import Navbar from "./components/navigation/navbar";
 import Product from "./pages/product/page";
 import SignIn from "./pages/authentication/signin/page";
 import SignUp from "./pages/authentication/signup/page";
-import { FirebaseAuthProvider, useFirebaseAuth } from "./contexts/auth";
-import LoadingDash from "./components/loading/dash";
+import { FirebaseAuthProvider } from "./contexts/auth";
+import Sandbox from "./pages/sandbox/page";
 
 // initialize firebase
 
@@ -19,13 +19,13 @@ function App() {
       <BrowserRouter>
         <FirebaseAuthProvider>
           <Navbar />
-          <UseremailFB />
           <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<Product />} />
             <Route path="/options" element={<Options />} />
+            <Route path="/sandbox" element={<Sandbox />} />
             {/* Auth */}
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
@@ -34,11 +34,6 @@ function App() {
       </BrowserRouter>
     </>
   );
-}
-
-function UseremailFB() {
-  const { user, userIsLoading } = useFirebaseAuth();
-  return (<>{userIsLoading ? <LoadingDash classes="w-40 my-2" /> : <div className="my-1 text-default leading-none">{user?.email || "unauthenticated"}</div>}</>);
 }
 
 export default App;

@@ -21,7 +21,7 @@ export default function SignUp() {
   return (
     <>
       <div>TESTING: `firebase emulators:start --only auth`</div>
-      <div className="relative w-fit min-w-lg">
+      <div className="relative w-full max-w-lg">
         {signUpLoading ? (
           <>
             <div className="absolute inset-0 flex items-center justify-center bg-contrast/90">

@@ -1,5 +1,21 @@
 import { useEffect, useState } from "react";
 import "./../../App.css";
+import { useFirebaseAuth } from "../../contexts/auth";
+import LoadingDash from "../../components/loading/dash";
+function UseremailFB() {
+  const { user, userIsLoading } = useFirebaseAuth();
+  return (
+    <>
+      {userIsLoading ? (
+        <LoadingDash classes="w-40 my-2" />
+      ) : (
+        <div className="my-1 text-default leading-none">
+          {user?.email || "unauthenticated"}
+        </div>
+      )}
+    </>
+  );
+}
 export default function Options() {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -73,6 +89,7 @@ export default function Options() {
         Colored Modes add different color on elements that are able to have an
         ordinal color attributed to (primary, secondary...)
       </p>
+      <UseremailFB />
     </>
   );
 }
