@@ -31,7 +31,6 @@ export default function Options() {
     localStorage.setItem("theme", theme);
   }, [theme]);
   const toggleTheme = () => {
-    console.log("BEFORE", theme);
     console.log(theme);
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };

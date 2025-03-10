@@ -10,6 +10,9 @@ export default function Navbar() {
           <li>
             <Link to={{ pathname: "/" }}>home</Link>
           </li>
+          <li>
+            <Link to={{ pathname: "/products" }}>products</Link>
+          </li>
 
           {userIsLoading ? (
             <>
@@ -20,9 +23,7 @@ export default function Navbar() {
               {user ? (
                 <>
                   <li>dashboard</li>
-                  <li>
-                    <Link to={{ pathname: "/products" }}>products</Link>
-                  </li>
+
                   <li>cart</li>
                   <li>checkout</li>
 

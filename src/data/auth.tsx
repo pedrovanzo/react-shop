@@ -21,7 +21,6 @@ const loginEmailPassword = async () => {
       loginEmail,
       loginPassword
     );
-    console.log("USERCREDENTIAL", userCredential);
   } catch (error) {
     console.log(error);
   }
@@ -37,7 +36,6 @@ const createAccount = async () => {
       loginEmail,
       loginPassword
     );
-    console.log("USERCREDENTIAL", userCredential);
   } catch (error) {
     console.log(error);
   }
@@ -54,26 +52,8 @@ const checkUser = () => {
   return user;
 };
 
-const monitorAuthState = async () => {
-  console.log(auth.currentUser);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("USERCHECK", user);
-    } else {
-      console.log("not logged in");
-    }
-  });
-};
-
-const authLogout = async () => {
-  console.log("Signed out");
-  await auth.signOut();
-};
-
 export {
   loginEmailPassword,
   createAccount,
-  monitorAuthState,
-  authLogout,
   checkUser,
 };

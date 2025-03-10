@@ -2,6 +2,7 @@ import { useState } from "react";
 import { loginEmailPassword } from "../../../data/auth";
 import { useFirebaseAuth } from "../../../contexts/auth";
 import LoadingSpinner from "../../../components/loading/spinner";
+import { Navigate } from "react-router-dom";
 
 export default function SignIn() {
   const { user, userIsLoading } = useFirebaseAuth();
@@ -18,6 +19,7 @@ export default function SignIn() {
         <LoadingSpinner />
       </>
     );
+  if (user) return <Navigate to={{ pathname: "/" }} />;
   return (
     <>
       <div>TESTING: `firebase emulators:start --only auth`</div>
@@ -29,39 +31,30 @@ export default function SignIn() {
             </div>
           </>
         ) : null}
-        {user ? (
-          <>
-            Welcome, {user.email}
-            otherline
-          </>
-        ) : (
-          <>
-            <div className="max-w-[512px] flex flex-col gap-4">
-              <p className="text-default">login</p>
-              <input
-                type="text"
-                placeholder="email"
-                className="border border-slate-500 p-1 rounded"
-              />
-              <input
-                type="password"
-                placeholder="password"
-                className="border border-slate-500 p-1 rounded"
-              />
-              <button
-                type="button"
-                className="p-2 bg-blue-500 text-contrast"
-                data-signin
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLogin();
-                }}
-              >
-                Sign In
-              </button>
-            </div>
-          </>
-        )}
+        <div className="max-w-[512px] flex flex-col gap-4">
+          <p className="text-default">login</p>
+          <input
+            type="text"
+            placeholder="email"
+            className="border border-slate-500 p-1 rounded"
+          />
+          <input
+            type="password"
+            placeholder="password"
+            className="border border-slate-500 p-1 rounded"
+          />
+          <button
+            type="button"
+            className="p-2 bg-blue-500 text-contrast"
+            data-signin
+            onClick={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+          >
+            Sign In
+          </button>
+        </div>
       </div>
     </>
   );
