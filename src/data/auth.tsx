@@ -21,6 +21,7 @@ const loginEmailPassword = async () => {
       loginEmail,
       loginPassword
     );
+    console.log(userCredential)
   } catch (error) {
     console.log(error);
   }
@@ -36,6 +37,7 @@ const createAccount = async () => {
       loginEmail,
       loginPassword
     );
+    console.log(userCredential)
   } catch (error) {
     console.log(error);
   }

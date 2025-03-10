@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "./connection";
 import LoadingSpinner from "../../components/loading/spinner";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFirebaseAuth } from "../../contexts/auth";
 export default function Home() {
   const [products, setProducts] = useState([null]);
@@ -28,7 +28,7 @@ export default function Home() {
     });
   }, []);
 
-  const { user, userIsLoading } = useFirebaseAuth()
+  const { userIsLoading } = useFirebaseAuth()
 
   if (userIsLoading) return <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center"><LoadingSpinner text="loading user..." /></div>
 
