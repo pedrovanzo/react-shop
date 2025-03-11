@@ -3,6 +3,8 @@ import { fetchData } from "./connection";
 import LoadingSpinner from "../../components/loading/spinner";
 import { Link } from "react-router-dom";
 import { useFirebaseAuth } from "../../contexts/auth";
+import ProductItemOfList from "../../components/list/item/product";
+import LoadingProductItemOfList from "../../components/list/item/loadingProduct";
 export default function Home() {
   const [products, setProducts] = useState([null]);
   const [loading, setLoading] = useState(true);
@@ -13,9 +15,9 @@ export default function Home() {
       try {
         const productsData: any = [];
         productsParameter.forEach((element: any) => {
-          let productObjectAux: any = {}
-          productObjectAux = element.data()
-          productObjectAux.id = element.id
+          let productObjectAux: any = {};
+          productObjectAux = element.data();
+          productObjectAux.id = element.id;
           productsData.push(productObjectAux);
         });
         setProducts(productsData);
@@ -28,17 +30,27 @@ export default function Home() {
     });
   }, []);
 
-  const { userIsLoading } = useFirebaseAuth()
+  const { userIsLoading } = useFirebaseAuth();
 
-  if (userIsLoading) return <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center"><LoadingSpinner text="loading user..." /></div>
+  if (userIsLoading)
+    return (
+      <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center">
+        <LoadingSpinner text="loading user..." />
+      </div>
+    );
 
   // if (user) return <Redirect />
 
   if (loading)
     return (
-      <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center">
-        <LoadingSpinner text="loading data..." />
-      </div>
+      <ul className="flex flex-col gap-4">
+        <li>
+          <LoadingProductItemOfList />
+        </li>
+        <li>
+          <LoadingProductItemOfList />
+        </li>
+      </ul>
     );
   if (error) return <p className="text-default">Error: {error}</p>;
 
@@ -51,16 +63,9 @@ export default function Home() {
             return (
               <>
                 <li key={index}>
-                  <Link
-                    to={{ pathname: `/product/${product.id}` }}
-                    className="flex flex-row gap-2"
-                  >
-                    <img
-                      src={product.productImages[0]}
-                      alt={product.productName}
-                      className="size-16 rounded-md"
-                    />
-                    <div className="text-default">{product.productName}</div>
+                  <Link to={{ pathname: `/product/${product.id}` }}>
+                    <ProductItemOfList product={product} />
+                    {/* <LoadingProductItemOfList /> */}
                   </Link>
                 </li>
               </>
