@@ -50,6 +50,9 @@ export default function Home() {
         <li>
           <LoadingProductItemOfList />
         </li>
+        <li>
+          <LoadingProductItemOfList />
+        </li>
       </ul>
     );
   if (error) return <p className="text-default">Error: {error}</p>;
@@ -65,9 +68,11 @@ export default function Home() {
                 <li key={index}>
                   <Link to={{ pathname: `/product/${product.id}` }}>
                     <ProductItemOfList product={product} />
-                    {/* <LoadingProductItemOfList /> */}
                   </Link>
                 </li>
+                {/* <li>
+                  <LoadingProductItemOfList />
+                </li> */}
               </>
             );
           })

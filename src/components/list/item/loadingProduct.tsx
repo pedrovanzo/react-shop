@@ -5,10 +5,10 @@ export default function LoadingProductItemOfList() {
     <>
       <div className="flex flex-row gap-2 animate-pulse">
         <div
-          className="flex items-center justify-center size-24 rounded-md bg-contrast"
+          className="flex items-center justify-center size-24 rounded-md shadow bg-default/5"
           aria-label="loading-image"
         >
-          <FaRegFileImage data-icon-color />
+          <FaRegFileImage className="rotate-345 size-14 text-default/20" />
         </div>
         <div className="flex flex-col gap-1 justify-center text-default">
           <div className="text-sm leading-none" aria-label="Product Name">

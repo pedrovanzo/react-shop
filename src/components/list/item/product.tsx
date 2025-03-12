@@ -6,7 +6,7 @@ export default function ProductItemOfList(props: any) {
         <img
           src={product.productImages[0]}
           alt={product.productName}
-          className="size-24 rounded-md"
+          className="size-24 rounded-md shadow"
         />
         <div className="flex flex-col gap-1 justify-center text-default">
           <div className="text-sm leading-none" aria-label="Product Name">

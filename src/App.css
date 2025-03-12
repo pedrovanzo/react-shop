@@ -37,7 +37,3 @@ button {
     background-color: var(--color-contrast);
   }
 }
-/* Default Icon Color */
-[data-icon-color] {
-  color: var(--color-default);
-}
