@@ -11,6 +11,7 @@ function getCart() {
 type CartArray = Array<string>
 function addToCart() {
   const currentCart = localStorage.getItem("react-shop-cart");
+  console.log(currentCart)
   // add to current, then set localstorage
   const foo: CartArray = ["1", "2"]
   localStorage.setItem("react-shop-cart", JSON.stringify(foo))

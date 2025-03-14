@@ -11,7 +11,7 @@ export default function Product() {
   const { user, userIsLoading } = useFirebaseAuth();
   const [product, setProduct] = useState<any>();
   const [isDocLoading, setIsDocLoading] = useState<boolean>(true);
-  const { cart, setCart } = useProductContext()
+  const { setCart } = useProductContext()
   useEffect(() => {
     fetchData(id).then((res) => {
       setProduct(res);
