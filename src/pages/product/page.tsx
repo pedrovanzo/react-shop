@@ -3,6 +3,7 @@ import { useFirebaseAuth } from "../../contexts/auth";
 import { fetchData } from "./connection";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/loading/spinner";
+import { useProductContext } from "../../contexts/cart";
 export default function Product() {
   const navigate = useNavigate();
   let id: any;
@@ -10,6 +11,7 @@ export default function Product() {
   const { user, userIsLoading } = useFirebaseAuth();
   const [product, setProduct] = useState<any>();
   const [isDocLoading, setIsDocLoading] = useState<boolean>(true);
+  const { cart, setCart } = useProductContext()
   useEffect(() => {
     fetchData(id).then((res) => {
       setProduct(res);
@@ -44,7 +46,29 @@ export default function Product() {
       ) : (
         <>
           {user ? (
-            <button className="py-1 px-2 bg-blue-500 text-white rounded-md">
+            <button
+              onClick={() => {
+                if (window.confirm("Confirm product to cart?")) {
+                  let beforeCurrentCart =
+                    localStorage.getItem("react-shop-cart");
+                  if (beforeCurrentCart === null) beforeCurrentCart = "[]";
+                  let currentCart: any = JSON.parse(beforeCurrentCart);
+                  console.log("CURRENT", currentCart);
+                  currentCart.push({
+                    id: id.id,
+                    productName: product?.productName,
+                    productImg: product?.productImages[0],
+                    productPrice: product?.productPrice
+                  });
+                  localStorage.setItem(
+                    "react-shop-cart",
+                    JSON.stringify(currentCart)
+                  );
+                  setCart(currentCart)
+                }
+              }}
+              className="py-1 px-2 bg-blue-500 text-white rounded-md"
+            >
               Add to cart
             </button>
           ) : (

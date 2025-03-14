@@ -1,5 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { FirebaseAuthProvider } from "./contexts/auth";
+import { ProductProvider } from "./contexts/cart";
 import Home from "./pages/home/page";
 import NotFound from "./pages/notFound/page";
 import Products from "./pages/products/page";
@@ -8,8 +10,8 @@ import Navbar from "./components/navigation/navbar";
 import Product from "./pages/product/page";
 import SignIn from "./pages/authentication/signin/page";
 import SignUp from "./pages/authentication/signup/page";
-import { FirebaseAuthProvider } from "./contexts/auth";
 import Sandbox from "./pages/sandbox/page";
+import Cart from "./pages/cart/page";
 
 // initialize firebase
 
@@ -18,18 +20,21 @@ function App() {
     <>
       <BrowserRouter>
         <FirebaseAuthProvider>
-          <Navbar />
-          <Routes>
-            <Route path="*" element={<NotFound />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/product/:id" element={<Product />} />
-            <Route path="/options" element={<Options />} />
-            <Route path="/sandbox" element={<Sandbox />} />
-            {/* Auth */}
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-          </Routes>
+          <ProductProvider>
+            <Navbar />
+            <Routes>
+              <Route path="*" element={<NotFound />} />
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/product/:id" element={<Product />} />
+              <Route path="/options" element={<Options />} />
+              <Route path="/sandbox" element={<Sandbox />} />
+              {/* Auth */}
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Routes>
+          </ProductProvider>
         </FirebaseAuthProvider>
       </BrowserRouter>
     </>

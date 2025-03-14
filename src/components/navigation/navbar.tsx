@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useProductContext } from "../../contexts/cart";
 import { useFirebaseAuth, authSignout } from "../../contexts/auth";
 import LoadingDash from "../loading/dash";
 export default function Navbar() {
   const { user, userIsLoading } = useFirebaseAuth();
+  const { cart, setCart } = useProductContext();
+  useEffect(() => {}, [setCart]);
   return (
     <>
       <nav className="mb-4">
@@ -24,7 +28,9 @@ export default function Navbar() {
                 <>
                   <li>dashboard</li>
 
-                  <li>cart</li>
+                  <li>
+                    <Link to={{ pathname: "/cart" }}>cart {cart.length > 0 ? "(" + cart.length + ")" : null}</Link>
+                  </li>
                   <li>checkout</li>
 
                   <li>

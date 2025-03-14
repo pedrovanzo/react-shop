@@ -1,38 +1,86 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import dataList from "./../../data/productsList.json";
+import LoadingProductItemOfList from "../../components/list/item/loadingProduct";
+import ProductItemOfList from "../../components/list/item/product";
+import LoadingSpinner from "../../components/loading/spinner";
+import { useFirebaseAuth } from "../../contexts/auth";
+import { useProductContext } from "../../contexts/cart";
+import { fetchData } from "./connection";
 export default function Products() {
-  const productsList = dataList;
+  const [products, setProducts] = useState([null]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const { cart } = useProductContext();
+
+  useEffect(() => {
+    fetchData().then((productsParameter) => {
+      try {
+        const productsData: any = [];
+        productsParameter.forEach((element: any) => {
+          let productObjectAux: any = {};
+          productObjectAux = element.data();
+          productObjectAux.id = element.id;
+          productsData.push(productObjectAux);
+        });
+        setProducts(productsData);
+      } catch (err: any) {
+        setError(err);
+      }
+
+      setLoading(false);
+      // setLoading(true)
+    });
+  }, []);
+
+  const { userIsLoading } = useFirebaseAuth();
+
+  if (userIsLoading)
+    return (
+      <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center">
+        <LoadingSpinner text="loading user..." />
+      </div>
+    );
+
+  // if (user) return <Redirect />
+
+  if (loading)
+    return (
+      <ul className="flex flex-col gap-4">
+        <li>
+          <LoadingProductItemOfList />
+        </li>
+        <li>
+          <LoadingProductItemOfList />
+        </li>
+        <li>
+          <LoadingProductItemOfList />
+        </li>
+      </ul>
+    );
+  if (error) return <p className="text-default">Error: {error}</p>;
   return (
     <>
+      {/* <LoadingSpinner /> */}
       <ul className="flex flex-col gap-4">
-        {productsList.map((product, index) => {
-          return (
-            <>
-              <li key={index}>
-                <Link
-                  to={{ pathname: `/product/${product.productId}` }}
-                  className="max-w-60 flex flex-row gap-2 items-center"
-                >
-                  <div className="shrink-0">
-                    <img
-                      src={product.productImages[0]}
-                      alt={product.productName}
-                      className="size-24 rounded-lg"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-default text-2xl">
-                      {product.productPrice}
-                    </div>
-                    <div className="text-default text-sm">
-                      {product.productName}
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            </>
-          );
-        })}
+        {products.length != 0 ? (
+          products.map((product: any, index) => {
+            return (
+              <>
+                <li key={index}>
+                  <Link to={{ pathname: `/product/${product.id}` }}>
+                    <ProductItemOfList product={product} />
+                  </Link>
+                </li>
+                {/* <li>
+                    <LoadingProductItemOfList />
+                  </li> */}
+              </>
+            );
+          })
+        ) : (
+          <div className="text-default">No products found :(</div>
+        )}
       </ul>
     </>
   );
