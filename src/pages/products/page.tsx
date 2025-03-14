@@ -4,14 +4,14 @@ import LoadingProductItemOfList from "../../components/list/item/loadingProduct"
 import ProductItemOfList from "../../components/list/item/product";
 import LoadingSpinner from "../../components/loading/spinner";
 import { useFirebaseAuth } from "../../contexts/auth";
-import { useProductContext } from "../../contexts/cart";
+// import { useProductContext } from "../../contexts/cart";
 import { fetchData } from "./connection";
 export default function Products() {
   const [products, setProducts] = useState([null]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { cart } = useProductContext();
+  // const { cart } = useProductContext();
 
   useEffect(() => {
     fetchData().then((productsParameter) => {
