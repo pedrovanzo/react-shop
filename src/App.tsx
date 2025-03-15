@@ -10,8 +10,8 @@ import Navbar from "./components/navigation/navbar";
 import Product from "./pages/product/page";
 import SignIn from "./pages/authentication/signin/page";
 import SignUp from "./pages/authentication/signup/page";
-import Sandbox from "./pages/sandbox/page";
 import Cart from "./pages/cart/page";
+import { AbortSandbox } from "./pages/sandbox/abort";
 
 // initialize firebase
 
@@ -29,7 +29,7 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/product/:id" element={<Product />} />
               <Route path="/options" element={<Options />} />
-              <Route path="/sandbox" element={<Sandbox />} />
+              <Route path="/sandbox" element={<AbortSandbox />} />
               {/* Auth */}
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />

@@ -9,19 +9,23 @@ export default function SignIn() {
   const [signInLoading, setSignInLoading] = useState<boolean>(false);
   function handleLogin() {
     setSignInLoading(true);
-    loginEmailPassword().then(() => {
-      setSignInLoading(false);
-    });
+    loginEmailPassword()
+      .then(() => {
+        setSignInLoading(false);
+      })
+      .catch((error) => {
+        console.log("Sign in failed", error);
+        setSignInLoading(false);
+      });
   }
-  if (userIsLoading)
-    return (
-      <>
-        <LoadingSpinner />
-      </>
-    );
+  // {userIsLoading && <LoadingSpinner abortSignal={abortController.signal} />}
+  {
+    userIsLoading && <LoadingSpinner />;
+  }
   if (user) return <Navigate to={{ pathname: "/" }} />;
   return (
     <>
+      {/* <LoadingSpinner isCancelable /> */}
       <div>TESTING: `firebase emulators:start --only auth`</div>
       <div className="relative w-full max-w-lg">
         {signInLoading ? (
