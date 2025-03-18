@@ -4,6 +4,7 @@ import { fetchData } from "./connection";
 import { useEffect, useState } from "react";
 import LoadingSpinner from "../../components/loading/spinner";
 import { useProductContext } from "../../contexts/cart";
+import Navbar from "../../components/navigation/navbar";
 export default function Product() {
     const navigate = useNavigate();
     let id: any;
@@ -26,6 +27,7 @@ export default function Product() {
         );
     return (
         <>
+            <Navbar />
             <div>
                 <img
                     src={product?.productImages[0]}
@@ -62,7 +64,8 @@ export default function Product() {
                                         productName: product?.productName,
                                         productImg: product?.productImages[0],
                                         productPrice: product?.productPrice,
-                                        productShipping: product?.productShipping
+                                        productShipping:
+                                            product?.productShipping,
                                     });
                                     localStorage.setItem(
                                         "react-shop-cart",

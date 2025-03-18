@@ -1,18 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useProductContext } from "../../contexts/cart";
 import { Link, Navigate } from "react-router-dom";
 import { useFirebaseAuth } from "../../contexts/auth";
 import { IoCart, IoCartOutline } from "react-icons/io5";
 import LoadingSpinnerIcon from "../../components/loading/spinnerIcon";
+import Navbar from "../../components/navigation/navbar";
 
 export default function Cart() {
     const { cart, setCart } = useProductContext();
     const { user, userIsLoading } = useFirebaseAuth();
+    const [totalProductValue, setTotalProductValue] = useState<number>(0);
+    const [totalShippingValue, setTotalShippingValue] = useState<number>(0);
+    let productSum: number = 0;
+    let shippingSum: number = 0;
     function handleClearCart() {
         if (window.confirm("Clear all items on the cart?")) {
             localStorage.removeItem("react-shop-cart");
             localStorage.setItem("react-shop-cart", "[]");
             setCart([]);
+            setTotalProductValue(0);
+            setTotalShippingValue(0);
         }
     }
     function handleRemoveItem(index: number) {
@@ -24,11 +31,22 @@ export default function Cart() {
             }
             auxArray.splice(index, 1);
             setCart(auxArray);
+            productSum -= cart[index]?.productPrice;
+            shippingSum -= cart[index]?.productShipping;
+            setTotalProductValue(productSum);
+            setTotalShippingValue(shippingSum);
             localStorage.removeItem("react-shop-cart");
             localStorage.setItem("react-shop-cart", JSON.stringify(auxArray));
         }
     }
-    useEffect(() => {}, [setCart]);
+    useEffect(() => {
+        for (let i = 0; i < cart.length; i++) {
+            productSum += cart[i].productPrice;
+            shippingSum += cart[i].productShipping;
+        }
+        setTotalProductValue(productSum);
+        setTotalShippingValue(shippingSum);
+    }, [setCart, totalProductValue]);
     if (userIsLoading)
         return (
             <div className="my-2 flex flex-row gap-4 items-center">
@@ -40,6 +58,7 @@ export default function Cart() {
     if (!user) return <Navigate to={{ pathname: "/" }} />;
     return (
         <>
+            <Navbar />
             <div className="my-2 flex flex-row gap-2 items-center">
                 {cart.length > 0 ? (
                     <IoCart className="text-default" size="24" />
@@ -106,8 +125,15 @@ export default function Cart() {
                                 );
                             })}
                         </ul>
-                        <div className="flex flex-row gap-2 items-center justify-between leading-none">
-                            <div>Total: $foo</div>
+                        <div className="my-2 flex flex-row gap-2 items-center justify-between leading-none">
+                            <div className="flex flex-col justify-center text-default">
+                                <div><span className="text-sm">Products Total:</span> ${totalProductValue}</div>
+                                <div><span className="text-sm">Shipping Total:</span> ${totalShippingValue}</div>
+                                <div>
+                                    <span className="text-sm">Purchase Total: $</span>
+                                    {totalProductValue + totalShippingValue}
+                                </div>
+                            </div>
                             <button
                                 onClick={() => {
                                     handleClearCart();

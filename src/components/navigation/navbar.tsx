@@ -57,6 +57,9 @@ export default function Navbar() {
           <li>
             <Link to={{ pathname: "/sandbox" }}>sandbox</Link>
           </li>
+          <li className="hidden">
+            <Link to={{ pathname: "/snake" }}>snake</Link>
+          </li>
         </ul>
       </nav>
     </>

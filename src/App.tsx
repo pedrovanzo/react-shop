@@ -6,12 +6,12 @@ import Home from "./pages/home/page";
 import NotFound from "./pages/notFound/page";
 import Products from "./pages/products/page";
 import Options from "./pages/options/page";
-import Navbar from "./components/navigation/navbar";
 import Product from "./pages/product/page";
 import SignIn from "./pages/authentication/signin/page";
 import SignUp from "./pages/authentication/signup/page";
 import Cart from "./pages/cart/page";
-import { AbortSandbox } from "./pages/sandbox/abort";
+import { Snake } from "./pages/snake/page";
+import Sandbox from "./pages/sandbox/page";
 
 // initialize firebase
 
@@ -21,7 +21,6 @@ function App() {
       <BrowserRouter>
         <FirebaseAuthProvider>
           <ProductProvider>
-            <Navbar />
             <Routes>
               <Route path="*" element={<NotFound />} />
               <Route path="/" element={<Home />} />
@@ -29,7 +28,8 @@ function App() {
               <Route path="/products" element={<Products />} />
               <Route path="/product/:id" element={<Product />} />
               <Route path="/options" element={<Options />} />
-              <Route path="/sandbox" element={<AbortSandbox />} />
+              <Route path="/sandbox" element={<Sandbox />} />
+              <Route path="/snake" element={<Snake />}/>
               {/* Auth */}
               <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />

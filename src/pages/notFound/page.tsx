@@ -1,9 +1,10 @@
+import Navbar from "../../components/navigation/navbar";
+
 export default function NotFound() {
-  return (
-    <>
-      <div>
-        NOT FOUND
-      </div>
-    </>
-  );
+    return (
+        <>
+            <Navbar />
+            <div>NOT FOUND</div>
+        </>
+    );
 }
