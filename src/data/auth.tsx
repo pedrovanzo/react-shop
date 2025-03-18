@@ -31,6 +31,7 @@ const createAccount = async (emailRef: string, passwordRef: string) => {
             emailRef,
             passwordRef
         );
+        console.log(userCredential)
     } catch (error) {
         console.log(error);
     }
