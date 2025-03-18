@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import LoadingProductItemOfList from "../../components/list/item/loadingProduct";
 import ProductItemOfList from "../../components/list/item/product";
-import LoadingSpinner from "../../components/loading/spinner";
 import { useFirebaseAuth } from "../../contexts/auth";
 // import { useProductContext } from "../../contexts/cart";
 import { fetchData } from "./connection";
