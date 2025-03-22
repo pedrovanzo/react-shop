@@ -4,6 +4,7 @@ import { useFirebaseAuth } from "../../../contexts/auth";
 import LoadingSpinner from "../../../components/loading/spinner";
 import { Navigate } from "react-router-dom";
 import Navbar from "../../../components/navigation/navbar";
+import SignInEmailComponent from "../../../components/auth/signin/email";
 
 export default function SignIn() {
     const { user, userIsLoading } = useFirebaseAuth();
@@ -30,7 +31,8 @@ export default function SignIn() {
         <>
             <Navbar />
             {/* <LoadingSpinner isCancelable /> */}
-            <div className="relative w-full max-w-lg">
+            <SignInEmailComponent />
+            <div className="hidden relative w-full max-w-lg">
                 {signInLoading ? (
                     <>
                         <div className="absolute inset-0 flex items-center justify-center bg-contrast/90">
@@ -68,7 +70,7 @@ export default function SignIn() {
                     </button>
                 </div>
             </div>
-            <div className="my-2 text-default text-sm">react@shop | password</div>
+            <div className="my-2 text-default/50 text-sm">react@shop.test | password</div>
         </>
     );
 }

@@ -7,13 +7,13 @@ function UseremailFB() {
     const { user, userIsLoading } = useFirebaseAuth();
     return (
         <>
-            {userIsLoading ? (
-                <LoadingDash classes="w-40 my-2" />
-            ) : (
-                <div className="my-1 text-default leading-none">
-                    {user?.email || "unauthenticated"}
-                </div>
-            )}
+            <div className="my-1 flex items-center text-default leading-none">
+                {userIsLoading ? (
+                    <LoadingDash classes="w-40 my-2" />
+                ) : (
+                    user?.email || "unauthenticated"
+                )}
+            </div>
         </>
     );
 }
