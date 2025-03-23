@@ -12,33 +12,42 @@ import SignUp from "./pages/authentication/signup/page";
 import Cart from "./pages/cart/page";
 import { Snake } from "./pages/snake/page";
 import Sandbox from "./pages/sandbox/page";
+import { FeatureFlagsProvider } from "./contexts/featureFlag";
 
 // initialize firebase
 
 function App() {
-  return (
-    <>
-      <BrowserRouter>
-        <FirebaseAuthProvider>
-          <ProductProvider>
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/product/:id" element={<Product />} />
-              <Route path="/options" element={<Options />} />
-              <Route path="/sandbox" element={<Sandbox />} />
-              <Route path="/snake" element={<Snake />}/>
-              {/* Auth */}
-              <Route path="/signin" element={<SignIn />} />
-              <Route path="/signup" element={<SignUp />} />
-            </Routes>
-          </ProductProvider>
-        </FirebaseAuthProvider>
-      </BrowserRouter>
-    </>
-  );
+    return (
+        <>
+            <BrowserRouter>
+                <FirebaseAuthProvider>
+                    <ProductProvider>
+                        <FeatureFlagsProvider>
+                            <Routes>
+                                <Route path="*" element={<NotFound />} />
+                                <Route path="/" element={<Home />} />
+                                <Route path="/cart" element={<Cart />} />
+                                <Route
+                                    path="/products"
+                                    element={<Products />}
+                                />
+                                <Route
+                                    path="/product/:id"
+                                    element={<Product />}
+                                />
+                                <Route path="/options" element={<Options />} />
+                                <Route path="/sandbox" element={<Sandbox />} />
+                                <Route path="/snake" element={<Snake />} />
+                                {/* Auth */}
+                                <Route path="/signin" element={<SignIn />} />
+                                <Route path="/signup" element={<SignUp />} />
+                            </Routes>
+                        </FeatureFlagsProvider>
+                    </ProductProvider>
+                </FirebaseAuthProvider>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;
