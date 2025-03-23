@@ -8,7 +8,6 @@ export default function Navbar() {
     const { user, userIsLoading } = useFirebaseAuth();
     const { cart, setCart } = useProductContext();
     useEffect(() => {}, [setCart]);
-    console.log("FROM NAV, IMPORT>...", import.meta.env)
     return (
         <>
             <nav className="mb-4">

@@ -5,7 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { cva } from "class-variance-authority";
 
 type FloatingLabelInputProps = {
-    type: string;
+    type: any;
     text: string;
     inputColor: any;
     labelColor: any;
@@ -48,16 +48,34 @@ const labelStyles = cva(
 );
 // type LoadingSpinnerIconProps = VariantProps<typeof buttonStyles> &
 //   ComponentProps<"div">;
-// RETURN THIS STUFF RIGHT AFTER DEPLOY
 // type InputProps = VariantProps<typeof inputStyles> & ComponentProps<"input">;
 // type LabelProps = VariantProps<typeof labelStyles> & ComponentProps<"label">;
 // const FloatingLabelInput: FC<FloatingLabelInputProps> = ({ inputColor }: InputProps, { labelColor }: LabelProps, { type, text }: FloatingLabelInputProps) => {
-const FloatingLabelInput: FC<FloatingLabelInputProps> = ({
+const FloatingLabelInput: FC<FloatingLabelInputProps> = (
+    {
     type,
     text,
     inputColor,
     labelColor,
-}) => {
+}
+
+//     {
+//     type,
+//     text,
+//     inputColor,
+//     labelColor,
+// }:{
+//     type:string,
+//     text:string,
+//     inputColor:InputProps,
+//     labelColor:LabelProps
+// }
+
+// { inputColor }: InputProps,
+// { labelColor }: LabelProps,
+// { type, text }: FloatingLabelInputProps
+
+) => {
     const emailRef = useRef<HTMLInputElement>(null);
 
     return (
