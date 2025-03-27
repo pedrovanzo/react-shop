@@ -3,7 +3,7 @@ import "./snake.css";
 // import "./game.ts"
 // import { main } from "./game.ts";
 export function Snake() {
-    const boardRef = useRef<HTMLDivElement>(null)
+    // const boardRef = useRef<HTMLDivElement>(null)
     useEffect(() => {
         // const boardElement = boardRef.current
         const bodyDocument = document.body;
