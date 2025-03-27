@@ -71,7 +71,9 @@ export default function Navbar() {
                     </li>
                     <FeatureEnabled featureFlag="SANDBOX">
                         <li>
-                            <Link to={{ pathname: "/sandbox" }}>sandbox (from env)</Link>
+                            <Link to={{ pathname: "/sandbox" }}>
+                                sandbox (from env)
+                            </Link>
                         </li>
                     </FeatureEnabled>
                     <FeatureEnabled featureFlag="SNAKE">
@@ -97,6 +99,11 @@ export default function Navbar() {
                             </li>
                         </>
                     ) : null}
+                    {/* <li>
+                        <Link to={{ pathname: "/snake" }}>
+                            snake
+                        </Link>
+                    </li> */}
                 </ul>
             </nav>
         </>
