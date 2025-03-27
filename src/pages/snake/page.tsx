@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import "./snake.css";
 // import "./game.ts"
 // import { main } from "./game.ts";
