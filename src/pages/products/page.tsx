@@ -2,61 +2,33 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import LoadingProductItemOfList from "../../components/list/item/loadingProduct";
 import ProductItemOfList from "../../components/list/item/product";
-import { useFirebaseAuth } from "../../contexts/auth";
-// import { useProductContext } from "../../contexts/cart";
-import { fetchData } from "./connection";
 import Navbar from "../../components/navigation/navbar";
+import localData from "./../../data/productsList.json";
+import ProductInterface from "../../interfaces/product";
 export default function Products() {
-    const [products, setProducts] = useState([null]);
+    const [products, setProducts] = useState<ProductInterface[]>([]);
+    console.log(localData);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    // const { cart } = useProductContext();
-
     useEffect(() => {
-        fetchData().then((productsParameter) => {
-            try {
-                const productsData: any = [];
-                productsParameter.forEach((element: any) => {
-                    let productObjectAux: any = {};
-                    productObjectAux = element.data();
-                    productObjectAux.id = element.id;
-                    productsData.push(productObjectAux);
-                });
-                setProducts(productsData);
-            } catch (err: any) {
-                setError(err);
-            }
-
+        setInterval(() => {
+            setProducts(localData);
             setLoading(false);
-            // setLoading(true)
-        });
+        }, 500);
+        return;
     }, []);
-
-    const { userIsLoading } = useFirebaseAuth();
-
-    // if (userIsLoading)
-    //     return (
-    //         <div className="absolute inset-0 bg-contrast/50 min-h-50 flex justify-center">
-    //             <LoadingSpinner text="loading user..." />
-    //         </div>
-    //     );
-
-    // if (user) return <Redirect />
-    if (error) return <p className="text-default">Error: {error}</p>;
     return (
         <>
             <Navbar />
-            {loading || userIsLoading ? (
+            {loading ? (
                 <>
                     <ul className="flex flex-col gap-4">
-                        <li>
+                        <li key={1}>
                             <LoadingProductItemOfList />
                         </li>
-                        <li>
+                        <li key={2}>
                             <LoadingProductItemOfList />
                         </li>
-                        <li>
+                        <li key={3}>
                             <LoadingProductItemOfList />
                         </li>
                     </ul>
@@ -64,26 +36,26 @@ export default function Products() {
             ) : (
                 <ul className="flex flex-col gap-4">
                     {products.length != 0 ? (
-                        products.map((product: any, index) => {
-                            return (
-                                <>
-                                    <li key={index}>
-                                        <Link
-                                            to={{
-                                                pathname: `/product/${product.id}`,
-                                            }}
-                                        >
-                                            <ProductItemOfList
-                                                product={product}
-                                            />
-                                        </Link>
-                                    </li>
-                                    {/* <li>
-                    <LoadingProductItemOfList />
-                  </li> */}
-                                </>
-                            );
-                        })
+                        products.map(
+                            (product: ProductInterface, index: number) => {
+                                return (
+                                    <>
+                                        <li key={index}>
+                                            <Link
+                                                to={{
+                                                    pathname: `/product/${product.name}`,
+                                                }}
+                                                state={{ data: product }}
+                                            >
+                                                <ProductItemOfList
+                                                    product={product}
+                                                />
+                                            </Link>
+                                        </li>
+                                    </>
+                                );
+                            }
+                        )
                     ) : (
                         <div className="text-default">No products found :(</div>
                     )}

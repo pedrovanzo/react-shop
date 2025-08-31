@@ -1,112 +1,42 @@
 [
   {
-    "productId": 1,
-    "productName": "Modern Smartwatch",
-    "productDescription": "A sleek and stylish smartwatch with a high-resolution digital display, advanced health tracking, and seamless connectivity.",
-    "productYearOfProduction": 2025,
-    "productCharacteristics": [
-      "Touchscreen",
-      "Heart rate monitor",
-      "GPS",
-      "Water-resistant",
-      "Bluetooth connectivity"
-    ],
-    "productImages": [
-      "/assets/react-shop-images/watch/watch-1.webp",
-      "/assets/react-shop-images/watch/watch-2.webp",
-      "/assets/react-shop-images/watch/watch-3.webp",
-      "/assets/react-shop-images/watch/watch-4.webp",
-      "/assets/react-shop-images/watch/watch-5.webp"
-    ],
-    "productPrice": 249.99,
-    "productCountryOfOrigin": "USA"
+    "name": "Snake",
+    "description": "Basic Snake game developed in the React environment.",
+    "heroImage": "",
+    "interactions": [
+      {
+        "interaction": "foo"
+      }
+    ]
   },
   {
-    "productId": 2,
-    "productName": "Premium Espresso Machine",
-    "productDescription": "A high-end espresso machine with a modern stainless steel finish, designed for coffee enthusiasts who demand perfection.",
-    "productYearOfProduction": 2025,
-    "productCharacteristics": [
-      "Stainless steel body",
-      "Built-in grinder",
-      "Frothing wand",
-      "Digital controls",
-      "Automatic cleaning"
-    ],
-    "productImages": [
-      "/assets/react-shop-images/espresso/espresso-1.webp",
-      "/assets/react-shop-images/espresso/espresso-2.webp",
-      "/assets/react-shop-images/espresso/espresso-3.webp",
-      "/assets/react-shop-images/espresso/espresso-4.webp",
-      "/assets/react-shop-images/espresso/espresso-5.webp"
-    ],
-    "productPrice": 599.99,
-    "productCountryOfOrigin": "Italy"
+    "name": "UseMemo()",
+    "description": "Basic Snake game developed in the React environment.",
+    "heroImage": "",
+    "interactions": [
+      {
+        "interaction": "foo"
+      }
+    ]
   },
   {
-    "productId": 3,
-    "productName": "Durable Travel Backpack",
-    "productDescription": "A modern backpack made of high-quality, weather-resistant fabric with multiple compartments for convenience.",
-    "productYearOfProduction": 2025,
-    "productCharacteristics": [
-      "Water-resistant",
-      "Padded laptop compartment",
-      "Ergonomic straps",
-      "Lightweight",
-      "Multiple pockets"
-    ],
-    "productImages": [
-      "/assets/react-shop-images/backpack/backpack-1.webp",
-      "/assets/react-shop-images/backpack/backpack-2.webp",
-      "/assets/react-shop-images/backpack/backpack-3.webp",
-      "/assets/react-shop-images/backpack/backpack-4.webp",
-      "/assets/react-shop-images/backpack/backpack-5.webp"
-    ],
-    "productPrice": 79.99,
-    "productCountryOfOrigin": "Germany"
+    "name": "Github",
+    "description": "Basic Snake game developed in the React environment.",
+    "heroImage": "",
+    "interactions": [
+      {
+        "interaction": "foo"
+      }
+    ]
   },
   {
-    "productId": 4,
-    "productName": "Cordless Vacuum Cleaner",
-    "productDescription": "A lightweight yet powerful cordless vacuum cleaner with long battery life and a sleek modern design.",
-    "productYearOfProduction": 2025,
-    "productCharacteristics": [
-      "Cordless",
-      "HEPA filter",
-      "Lightweight",
-      "Long battery life",
-      "Multi-surface cleaning"
-    ],
-    "productImages": [
-      "/assets/react-shop-images/vacuum/vacuum-1.webp",
-      "/assets/react-shop-images/vacuum/vacuum-2.webp",
-      "/assets/react-shop-images/vacuum/vacuum-3.webp",
-      "/assets/react-shop-images/vacuum/vacuum-4.webp",
-      "/assets/react-shop-images/vacuum/vacuum-5.webp"
-    ],
-    "productPrice": 349.99,
-    "productCountryOfOrigin": "South Korea"
-  },
-  {
-    "productId": 5,
-    "productName": "Ergonomic Office Chair",
-    "productDescription": "A stylish and comfortable office chair designed with ergonomic support for long hours of work.",
-    "productYearOfProduction": 2025,
-    "productCharacteristics": [
-      "Adjustable height",
-      "Lumbar support",
-      "Breathable mesh",
-      "360-degree swivel",
-      "Tilt control"
-    ],
-    "productImages": [
-      "/assets/react-shop-images/chair/chair-1.webp",
-      "/assets/react-shop-images/chair/chair-2.webp",
-      "/assets/react-shop-images/chair/chair-3.webp",
-      "/assets/react-shop-images/chair/chair-4.webp",
-      "/assets/react-shop-images/chair/chair-5.webp"
-    ],
-    "productPrice": 199.99,
-    "productCountryOfOrigin": "Canada"
+    "name": "Typescript",
+    "description": "Basic Snake game developed in the React environment.",
+    "heroImage": "",
+    "interactions": [
+      {
+        "interaction": "foo"
+      }
+    ]
   }
 ]

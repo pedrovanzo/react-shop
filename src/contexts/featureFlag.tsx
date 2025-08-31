@@ -5,7 +5,6 @@ import {
     useEffect,
     useState,
 } from "react";
-import { fetchEnvironmentVariables } from "../lib/featureFlagsFromDatabase";
 
 interface FEATURE_FLAGS_FROM_DATABASE {
     FEATURE_FLAG_SANDBOX: boolean;
@@ -29,11 +28,9 @@ export const FeatureFlagsProvider: React.FC<FeatureFlagsProps> = ({
     });
     useEffect(() => {
         // fetch flags from database
-        fetchEnvironmentVariables().then((result) => {
-            setFlags({
-                FEATURE_FLAG_SANDBOX: result.FEATURE_FLAG_SANDBOX,
-                FEATURE_FLAG_SNAKE: result.FEATURE_FLAG_SNAKE,
-            });
+        setFlags({
+            FEATURE_FLAG_SANDBOX: import.meta.env.FEATURE_FLAG_SANDBOX,
+            FEATURE_FLAG_SNAKE: import.meta.env.FEATURE_FLAG_SNAKE,
         });
     }, []);
     return (

@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import { useProductContext } from "../../contexts/cart";
-import { Link, Navigate } from "react-router-dom";
-import { useFirebaseAuth } from "../../contexts/auth";
+import { Link } from "react-router-dom";
 import { IoCart, IoCartOutline } from "react-icons/io5";
-import LoadingSpinnerIcon from "../../components/loading/spinnerIcon";
 import Navbar from "../../components/navigation/navbar";
 
 export default function Cart() {
     const { cart, setCart } = useProductContext();
-    const { user, userIsLoading } = useFirebaseAuth();
     const [totalProductValue, setTotalProductValue] = useState<number>(0);
     const [totalShippingValue, setTotalShippingValue] = useState<number>(0);
     let productSum: number = 0;
@@ -47,15 +44,6 @@ export default function Cart() {
         setTotalProductValue(productSum);
         setTotalShippingValue(shippingSum);
     }, [setCart, totalProductValue]);
-    if (userIsLoading)
-        return (
-            <div className="my-2 flex flex-row gap-4 items-center">
-                {/* <IoCartOutline className="text-default" size="24" /> */}
-                <LoadingSpinnerIcon size="default" variant="default" />
-                <div className="w-full h-0.5 bg-default"></div>
-            </div>
-        );
-    if (!user) return <Navigate to={{ pathname: "/" }} />;
     return (
         <>
             <Navbar />
@@ -106,6 +94,7 @@ export default function Cart() {
                                                     to={{
                                                         pathname: `/product/${item.id}`,
                                                     }}
+                                                    state={{ data: item }}
                                                 >
                                                     {item.productName}
                                                 </Link>

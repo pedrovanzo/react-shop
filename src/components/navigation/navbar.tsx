@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useProductContext } from "../../contexts/cart";
-import { useFirebaseAuth, authSignout } from "../../contexts/auth";
-import LoadingDash from "../loading/dash";
 import { FeatureEnabled } from "../feature/featureEnabled";
 import { useFeatureFlagsContext } from "../../contexts/featureFlag";
 export default function Navbar() {
-    const { user, userIsLoading } = useFirebaseAuth();
     const { cart, setCart } = useProductContext();
     const { flags } = useFeatureFlagsContext();
     useEffect(() => {}, [setCart]);
@@ -21,51 +18,14 @@ export default function Navbar() {
                         <Link to={{ pathname: "/products" }}>products</Link>
                     </li>
 
-                    {userIsLoading ? (
-                        <>
-                            <LoadingDash classes="my-auto w-30" />
-                        </>
-                    ) : (
-                        <>
-                            {user ? (
-                                <>
-                                    <li>dashboard</li>
-
-                                    <li>
-                                        <Link to={{ pathname: "/cart" }}>
-                                            cart{" "}
-                                            {cart.length > 0
-                                                ? "(" + cart.length + ")"
-                                                : null}
-                                        </Link>
-                                    </li>
-                                    <li>checkout</li>
-
-                                    <li>
-                                        <button
-                                            className="text-default"
-                                            onClick={authSignout}
-                                        >
-                                            sign out
-                                        </button>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li>
-                                        <Link to={{ pathname: "/signin" }}>
-                                            sign in
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={{ pathname: "/signup" }}>
-                                            sign up
-                                        </Link>
-                                    </li>
-                                </>
-                            )}
-                        </>
-                    )}
+                    <li>
+                        <Link to={{ pathname: "/cart" }}>
+                            cart{" "}
+                            {cart.length > 0
+                                ? "(" + cart.length + ")"
+                                : null}
+                        </Link>
+                    </li>
                     <li>
                         <Link to={{ pathname: "/options" }}>options</Link>
                     </li>
@@ -78,7 +38,7 @@ export default function Navbar() {
                     </FeatureEnabled>
                     <FeatureEnabled featureFlag="SNAKE">
                         <li>
-                            <Link to={{ pathname: "/snake" }}>snake</Link>
+                            <Link to={{ pathname: "/snake" }}>snakeaa fom flag</Link>
                         </li>
                     </FeatureEnabled>
                     {flags.FEATURE_FLAG_SANDBOX ? (
@@ -99,11 +59,11 @@ export default function Navbar() {
                             </li>
                         </>
                     ) : null}
-                    {/* <li>
+                    <li>
                         <Link to={{ pathname: "/snake" }}>
                             snake
                         </Link>
-                    </li> */}
+                    </li>
                 </ul>
             </nav>
         </>

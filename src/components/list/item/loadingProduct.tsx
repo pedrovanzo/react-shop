@@ -26,12 +26,6 @@ export default function LoadingProductItemOfList() {
           >
             delivery mode
           </div>
-          <div
-            className="flex flex-row gap-2 items-center text-sm leading-none"
-            aria-label="Shipping Cost"
-          >
-            shipping
-          </div>
         </div>
       </div>
     </>
