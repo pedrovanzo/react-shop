@@ -8,5 +8,5 @@ export default defineConfig({
     outDir: 'dist',
   },
   plugins: [react(), tailwindcss()],
-  envPrefix: ["DB_", "FEATURE_FLAG_"],
+  envPrefix: ["FEATURE_FLAG_"],
 })

@@ -2,10 +2,8 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useProductContext } from "../../contexts/cart";
 import { FeatureEnabled } from "../feature/featureEnabled";
-import { useFeatureFlagsContext } from "../../contexts/featureFlag";
 export default function Navbar() {
     const { cart, setCart } = useProductContext();
-    const { flags } = useFeatureFlagsContext();
     useEffect(() => {}, [setCart]);
     return (
         <>
@@ -36,29 +34,18 @@ export default function Navbar() {
                             </Link>
                         </li>
                     </FeatureEnabled>
+                    <FeatureEnabled featureFlag="FEATURE_FLAG_MENU">
+                        <li>
+                            <Link to={{ pathname: "/feature-flag" }}>
+                                feature flag
+                            </Link>
+                        </li>
+                    </FeatureEnabled>
                     <FeatureEnabled featureFlag="SNAKE">
                         <li>
                             <Link to={{ pathname: "/snake" }}>snakeaa fom flag</Link>
                         </li>
                     </FeatureEnabled>
-                    {flags.FEATURE_FLAG_SANDBOX ? (
-                        <>
-                            <li>
-                                <Link to={{ pathname: "/sandbox" }}>
-                                    sandbox (from feature flag)
-                                </Link>
-                            </li>
-                        </>
-                    ) : null}
-                    {flags.FEATURE_FLAG_SNAKE ? (
-                        <>
-                            <li>
-                                <Link to={{ pathname: "/snake" }}>
-                                    snake (from feature flag)
-                                </Link>
-                            </li>
-                        </>
-                    ) : null}
                     <li>
                         <Link to={{ pathname: "/snake" }}>
                             snake

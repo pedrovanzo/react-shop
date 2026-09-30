@@ -9,28 +9,33 @@ import Product from "./pages/product/page";
 import Cart from "./pages/cart/page";
 import Snake from "./pages/snake/SnakeGame";
 import Sandbox from "./pages/sandbox/page";
-import { FeatureFlagsProvider } from "./contexts/featureFlag";
+import FeatureFlag from "./pages/featureFlag/page";
+import { FEATURE_FLAGS } from "./lib/featureFlags";
 
 function App() {
     return (
         <>
             <BrowserRouter>
                 <ProductProvider>
-                    <FeatureFlagsProvider>
-                        <Routes>
-                            <Route path="*" element={<NotFound />} />
-                            <Route path="/" element={<Home />} />
-                            <Route path="/cart" element={<Cart />} />
-                            <Route path="/products" element={<Products />} />
+                    <Routes>
+                        <Route path="*" element={<NotFound />} />
+                        <Route path="/" element={<Home />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/products" element={<Products />} />
+                        <Route
+                            path="/product/:name"
+                            element={<Product />}
+                        />
+                        <Route path="/options" element={<Options />} />
+                        <Route path="/sandbox" element={<Sandbox />} />
+                        <Route path="/snake" element={<Snake />} />
+                        {FEATURE_FLAGS.FEATURE_FLAG_MENU && (
                             <Route
-                                path="/product/:name"
-                                element={<Product />}
+                                path="/feature-flag"
+                                element={<FeatureFlag />}
                             />
-                            <Route path="/options" element={<Options />} />
-                            <Route path="/sandbox" element={<Sandbox />} />
-                            <Route path="/snake" element={<Snake />} />
-                        </Routes>
-                    </FeatureFlagsProvider>
+                        )}
+                    </Routes>
                 </ProductProvider>
             </BrowserRouter>
         </>

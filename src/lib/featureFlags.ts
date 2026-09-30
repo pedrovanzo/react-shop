@@ -1,5 +1,6 @@
 export type FeatureFlagName = keyof typeof FEATURE_FLAGS
 export const FEATURE_FLAGS = {
     SANDBOX: import.meta.env.FEATURE_FLAG_SANDBOX === "true",
-    SNAKE: import.meta.env.FEATURE_FLAG_SNAKE === "true"
+    SNAKE: import.meta.env.FEATURE_FLAG_SNAKE === "true",
+    FEATURE_FLAG_MENU: import.meta.env.FEATURE_FLAG_MENU === "true"
 } as const
