@@ -1,21 +1,14 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useSimulatedLoading } from "../../hooks/useSimulatedLoading";
+import { Link } from "react-router";
 import LoadingProductItemOfList from "../../components/list/item/loadingProduct";
 import ProductItemOfList from "../../components/list/item/product";
 import Navbar from "../../components/navigation/navbar";
 import localData from "./../../data/productsList.json";
 import ProductInterface from "../../interfaces/product";
+import { productPath } from "../../lib/productPath";
 export default function Products() {
-    const [products, setProducts] = useState<ProductInterface[]>([]);
-    console.log(localData);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        setInterval(() => {
-            setProducts(localData);
-            setLoading(false);
-        }, 500);
-        return;
-    }, []);
+    const products: ProductInterface[] = localData;
+    const loading = useSimulatedLoading();
     return (
         <>
             <Navbar />
@@ -33,33 +26,24 @@ export default function Products() {
                         </li>
                     </ul>
                 </>
-            ) : (
+            ) : products.length != 0 ? (
                 <ul className="flex flex-col gap-4">
-                    {products.length != 0 ? (
-                        products.map(
-                            (product: ProductInterface, index: number) => {
-                                return (
-                                    <>
-                                        <li key={index}>
-                                            <Link
-                                                to={{
-                                                    pathname: `/product/${product.name}`,
-                                                }}
-                                                state={{ data: product }}
-                                            >
-                                                <ProductItemOfList
-                                                    product={product}
-                                                />
-                                            </Link>
-                                        </li>
-                                    </>
-                                );
-                            }
-                        )
-                    ) : (
-                        <div className="text-default">No products found :(</div>
-                    )}
+                    {products.map((product: ProductInterface) => {
+                        return (
+                            <li key={product.id}>
+                                <Link
+                                    to={{
+                                        pathname: productPath(product.name),
+                                    }}
+                                >
+                                    <ProductItemOfList product={product} />
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
+            ) : (
+                <div className="text-default">No products found :(</div>
             )}
         </>
     );

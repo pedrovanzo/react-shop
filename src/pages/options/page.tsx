@@ -1,62 +1,11 @@
-import { useEffect, useState } from "react";
-import "./../../App.css";
 import Navbar from "../../components/navigation/navbar";
+import ThemeSelector from "../../components/theme/themeSelector";
+import FeatureFlagsInfo from "../../components/feature/featureFlagsInfo";
 export default function Options() {
-    const [theme, setTheme] = useState(() => {
-        const storedTheme = localStorage.getItem("theme");
-        return (
-            storedTheme ||
-            (window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light")
-        );
-    });
-    useEffect(() => {
-        document.documentElement.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-    }, [theme]);
-    const toggleTheme = () => {
-        console.log(theme);
-        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    };
-    const insertOrdinalTheme = (theme: any) => {
-        document.documentElement.setAttribute("data-theme-ordinal", theme);
-    };
     return (
         <>
             <Navbar />
-            <div className="my-2 flex flex-col gap-4 w-fit">
-                <button
-                    className="p-2 rounded-md leading-none text-contrast bg-default"
-                    onClick={toggleTheme}
-                >
-                    {theme === "light" ? "Dark" : "Light"} Mode
-                </button>
-                <button
-                    className="p-2 rounded-md leading-none bg-contrast text-default"
-                    onClick={() => insertOrdinalTheme("null")}
-                >
-                    Default Mode
-                </button>
-                <button
-                    className="p-2 rounded-md leading-none bg-red-700 text-red-100"
-                    onClick={() => insertOrdinalTheme("red")}
-                >
-                    Red Mode
-                </button>
-                <button
-                    className="p-2 rounded-md leading-none bg-blue-700 text-blue-100"
-                    onClick={() => insertOrdinalTheme("blue")}
-                >
-                    Blue Mode
-                </button>
-                <button
-                    className="p-2 rounded-md leading-none bg-green-700 text-green-100"
-                    onClick={() => insertOrdinalTheme("green")}
-                >
-                    Green Mode
-                </button>
-            </div>
+            <ThemeSelector />
             <br />
             <div className="w-60 bg-primary/15">
                 <div className="w-full p-2 bg-primary"></div>
@@ -70,11 +19,15 @@ export default function Options() {
             </div>
             <p className="text-default">
                 Light and Dark mode changes between preset light and dark
-                colors.
+                colors. System mode follows the operating system setting.
                 <br />
                 Colored Modes add different color on elements that are able to
                 have an ordinal color attributed to (primary, secondary...)
             </p>
+            <section className="mt-8 max-w-lg flex flex-col gap-4 text-default">
+                <h2 className="text-xl font-semibold">Feature flags</h2>
+                <FeatureFlagsInfo />
+            </section>
         </>
     );
 }

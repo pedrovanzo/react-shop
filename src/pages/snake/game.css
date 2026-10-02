@@ -5,7 +5,7 @@
     background-color: hsl(0, 0%, 80%);
 }
 
-h1 {
+.snake-game h1 {
     margin-bottom: 20px;
 }
 
