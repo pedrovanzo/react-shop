@@ -1,39 +1,20 @@
-import { createContext, useContext, useState, ReactNode } from "react";
-interface Product {
-    id: number;
-    productName: string;
-    productImg: string;
-    productPrice: number;
-    productShipping: number;
-}
-interface ProductContextType {
-    cart: Product[];
-    setCart: React.Dispatch<React.SetStateAction<Product[]>>;
-}
-const ProductContext = createContext<ProductContextType | undefined>(undefined);
-interface ProductProviderProps {
+import { useEffect, useState, ReactNode } from "react";
+import { CartContext, CartProduct } from "./cartContext";
+const CART_STORAGE_KEY = "react-shop-cart";
+interface CartProviderProps {
     children: ReactNode;
 }
-export const ProductProvider: React.FC<ProductProviderProps> = ({
-    children,
-}) => {
-    let currentCart = localStorage.getItem("react-shop-cart");
-    if (currentCart === null) {
-        currentCart = "[]";
-    }
-    const [cart, setCart] = useState<Product[]>(JSON.parse(currentCart));
-    return (
-        <ProductContext.Provider value={{ cart, setCart }}>
-            {children}
-        </ProductContext.Provider>
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+    const [cart, setCart] = useState<CartProduct[]>(() =>
+        JSON.parse(localStorage.getItem(CART_STORAGE_KEY) ?? "[]")
     );
-};
-export const useProductContext = (): ProductContextType => {
-    const context = useContext(ProductContext);
-    if (!context) {
-        throw new Error(
-            "useProductContext must be used within a ProductProvider"
-        );
-    }
-    return context;
+    // Single place where the cart is persisted
+    useEffect(() => {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    }, [cart]);
+    return (
+        <CartContext.Provider value={{ cart, setCart }}>
+            {children}
+        </CartContext.Provider>
+    );
 };

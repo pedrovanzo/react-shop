@@ -8,8 +8,8 @@ export default function Sandbox() {
     const defaultArray = data;
     const sorteaz = data.slice();
     sorteaz.sort();
-    let sortNumberEven = [];
-    let sortNumberOdd = [];
+    const sortNumberEven = [];
+    const sortNumberOdd = [];
     for (let i = 0; i < numberArray.length; i++) {
         if (checkOddOrEven(parseInt(numberArray[i]) % 2)) {
             sortNumberOdd.push(numberArray[i]);

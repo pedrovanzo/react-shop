@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import "./game.css";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const gridSize = 21;
 const initialSnake = [
@@ -72,21 +72,21 @@ const SnakeGame = () => {
         return () => clearInterval(interval);
     }, [moveSnake, gameOver]);
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (gameOver) return;
-
-        if (e.key === "ArrowUp" && direction !== "DOWN") {
-            setDirection("UP");
-        } else if (e.key === "ArrowDown" && direction !== "UP") {
-            setDirection("DOWN");
-        } else if (e.key === "ArrowLeft" && direction !== "RIGHT") {
-            setDirection("LEFT");
-        } else if (e.key === "ArrowRight" && direction !== "LEFT") {
-            setDirection("RIGHT");
-        }
-    };
-
     useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (gameOver) return;
+
+            if (e.key === "ArrowUp" && direction !== "DOWN") {
+                setDirection("UP");
+            } else if (e.key === "ArrowDown" && direction !== "UP") {
+                setDirection("DOWN");
+            } else if (e.key === "ArrowLeft" && direction !== "RIGHT") {
+                setDirection("LEFT");
+            } else if (e.key === "ArrowRight" && direction !== "LEFT") {
+                setDirection("RIGHT");
+            }
+        };
+
         window.addEventListener("keydown", handleKeyDown);
         return () => {
             window.removeEventListener("keydown", handleKeyDown);
