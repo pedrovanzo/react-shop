@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const buttonStyles = cva([], {
+const spinnerIconStyles = cva([], {
   variants: {
     variant: {
       default: ["border-t-default"],
@@ -18,7 +18,7 @@ export const buttonStyles = cva([], {
     size: "default",
   },
 });
-type LoadingSpinnerIconProps = VariantProps<typeof buttonStyles> &
+type LoadingSpinnerIconProps = VariantProps<typeof spinnerIconStyles> &
   ComponentProps<"div">;
 export default function LoadingSpinnerIcon({
   variant,
@@ -32,7 +32,7 @@ export default function LoadingSpinnerIcon({
         {...props}
         className={twMerge(
           "relative bg-transparent border-4 border-transparent rounded-full flex justify-center items-center animate-spin",
-          buttonStyles({ variant, size }),
+          spinnerIconStyles({ variant, size }),
           className
         )}
       ></div>
