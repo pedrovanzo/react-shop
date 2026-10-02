@@ -1,4 +1,3 @@
-import "./../../App.css";
 import Navbar from "../../components/navigation/navbar";
 export default function FeatureFlag() {
     return (
