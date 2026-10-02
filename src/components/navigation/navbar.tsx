@@ -1,10 +1,9 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useProductContext } from "../../contexts/cart";
+import { Link } from "react-router";
+import { useCart } from "../../contexts/cartContext";
 import { FeatureEnabled } from "../feature/featureEnabled";
+import { FEATURE_FLAGS } from "../../lib/featureFlags";
 export default function Navbar() {
-    const { cart, setCart } = useProductContext();
-    useEffect(() => {}, [setCart]);
+    const { cart } = useCart();
     return (
         <>
             <nav className="mb-4">
@@ -25,7 +24,15 @@ export default function Navbar() {
                         </Link>
                     </li>
                     <li>
+                        <Link to={{ pathname: "/history" }}>history</Link>
+                    </li>
+                    <li>
                         <Link to={{ pathname: "/options" }}>options</Link>
+                    </li>
+                    <li>
+                        <Link to={{ pathname: "/components" }}>
+                            components library
+                        </Link>
                     </li>
                     <FeatureEnabled featureFlag="SANDBOX">
                         <li>
@@ -41,15 +48,12 @@ export default function Navbar() {
                             </Link>
                         </li>
                     </FeatureEnabled>
-                    <FeatureEnabled featureFlag="SNAKE">
-                        <li>
-                            <Link to={{ pathname: "/snake" }}>snakeaa fom flag</Link>
-                        </li>
-                    </FeatureEnabled>
                     <li>
-                        <Link to={{ pathname: "/snake" }}>
-                            snake
-                        </Link>
+                        {FEATURE_FLAGS.SNAKE ? (
+                            <Link to={{ pathname: "/snake" }}>snake</Link>
+                        ) : (
+                            <span>snake (feature flag disabled)</span>
+                        )}
                     </li>
                 </ul>
             </nav>
