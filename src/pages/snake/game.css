@@ -1,3 +1,4 @@
+/* All rules are scoped to .snake-game so generic class names like .grid don't leak into the rest of the app */
 .snake-game {
     display: flex;
     flex-direction: column;
@@ -9,35 +10,35 @@
     margin-bottom: 20px;
 }
 
-.grid {
+.snake-game .grid {
     display: grid;
     grid-template-rows: repeat(21, 1fr);
     /* grid-template-columns: repeat(21, 20px); */
     /* gap: 1px; */
 }
 
-.cell {
+.snake-game .cell {
     width: 20px;
     height: 20px;
     background-color: #eee;
 }
 
-.snake {
+.snake-game .snake {
     background-color: green;
 }
 
-.food {
+.snake-game .food {
     background-color: red;
 }
 
-.game-over {
+.snake-game .game-over {
     color: red;
     font-size: 24px;
     font-weight: bold;
     margin-top: 20px;
 }
 
-.row {
+.snake-game .row {
     display: grid;
     grid-template-columns: repeat(21, 1fr);
     /* gap: 1px; */

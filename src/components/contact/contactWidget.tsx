@@ -16,7 +16,7 @@ const DRAG_THRESHOLD = 5;
 
 function getStoredCorner(): Corner {
     const stored = localStorage.getItem(CORNER_STORAGE_KEY);
-    return CORNERS.includes(stored as Corner) ? (stored as Corner) : "bottom-left";
+    return CORNERS.includes(stored as Corner) ? (stored as Corner) : "bottom-right";
 }
 
 export default function ContactWidget() {

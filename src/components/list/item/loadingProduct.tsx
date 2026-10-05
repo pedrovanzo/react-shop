@@ -1,15 +1,13 @@
-import { FaRegFileImage } from "react-icons/fa";
 import ProductItemLayout from "./productItemLayout";
 
-export default function LoadingProductItemOfList() {
+export default function LoadingProductItemOfList({ condensed = false }: { condensed?: boolean }) {
   return (
     <ProductItemLayout
       className="animate-pulse"
       imageLabel="loading-image"
-      image={<FaRegFileImage className="rotate-345 size-14 text-default/20" />}
-      name="product name"
-      price="price"
-      delivery="delivery mode"
+      title="product name"
+      description="product summary"
+      condensed={condensed}
     />
   );
 }

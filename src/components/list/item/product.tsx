@@ -1,28 +1,20 @@
-import { FaRegFileImage } from "react-icons/fa";
 import ProductInterface from "../../../interfaces/product";
+import { getProductById } from "../../../data/products";
 import ProductItemLayout from "./productItemLayout";
 
 interface ProductFromProps {
     product: ProductInterface;
+    condensed?: boolean;
 }
 
-const ProductItemOfList: React.FC<ProductFromProps> = ({ product }) => {
+const ProductItemOfList: React.FC<ProductFromProps> = ({ product, condensed }) => {
+    const parent = getProductById(product.parentId);
     return (
         <ProductItemLayout
-            image={
-                product.heroImage ? (
-                    <img
-                        src={product.heroImage}
-                        alt={product.name}
-                        className="size-24 rounded-md shadow"
-                    />
-                ) : (
-                    <FaRegFileImage className="rotate-345 size-14 text-default/20" />
-                )
-            }
-            name={product.name}
-            price="$former-price"
-            delivery="deliver ready"
+            badge={parent?.name}
+            title={product.name}
+            description={product.summary}
+            condensed={condensed}
         />
     );
 };

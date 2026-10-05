@@ -1,7 +1,6 @@
 import { createContext, useContext } from "react";
 export interface CartProduct {
     productName: string;
-    productImg?: string;
 }
 interface CartContextType {
     cart: CartProduct[];

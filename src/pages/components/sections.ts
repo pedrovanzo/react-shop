@@ -7,6 +7,7 @@ import FeatureFlagsPreview from "./previews/featureFlags";
 import ButtonsPreview from "./previews/buttons";
 import ThemePreview from "./previews/theme";
 import TimelinePreview from "./previews/timeline";
+import TypographyPreview from "./previews/typography";
 export interface LibrarySection {
     id: string;
     label: string;
@@ -42,6 +43,6 @@ export const LIBRARY_SECTIONS: LibrarySection[] = [
     { id: "breadcrumbs", label: "Breadcrumbs" },
     { id: "pagination", label: "Pagination" },
     { id: "progress", label: "Progress" },
-    { id: "typography", label: "Typography" },
+    { id: "typography", label: "Typography", preview: TypographyPreview },
     { id: "icons", label: "Icons" },
 ];

@@ -1,45 +1,848 @@
 [
   {
+    "id": "feature-flags",
+    "name": "Feature flags",
+    "category": "Engineering practices",
+    "summary": "Feature flags let you turn parts of an app on or off without changing code, so features can be shipped, tested and rolled back safely. This shop runs on them: the snake game, the sandbox and other pages are all switched through flags.",
+    "draft": true,
+    "insights": [
+      {
+        "type": "explored",
+        "title": "I built two flag systems before I needed one",
+        "body": "My first version had both a static config and a React context meant to load flags from a database (Firebase at the time). When I dropped the database, the context was left doing the same job as the static version, with more code and a first-render flicker. I merged them into one. Lesson: build the flag system for where flags actually live today, not where they might live someday."
+      },
+      {
+        "type": "gotcha",
+        "title": "Env values are strings, and \"false\" counts as true",
+        "body": "The context version passed raw .env values into booleans. The string \"false\" is truthy in JavaScript, so disabled flags still showed their links. The fix is an explicit === \"true\" check, plus a default for flags that are missing."
+      },
+      {
+        "type": "gotcha",
+        "title": "Hiding the link isn't disabling the feature",
+        "body": "My flags hid menu links, but the routes stayed registered, so typing the URL still opened the page. A flag has to gate the route itself, not just what's visible."
+      },
+      {
+        "type": "opinion",
+        "title": "Default on vs. default off is a product decision",
+        "body": "Most of my flags are opt-in. The snake game is the opposite: on by default, and the flag only disables it. Choosing the default per flag is what decides what a fresh clone or deploy looks like."
+      },
+      {
+        "type": "gotcha",
+        "title": "Build-time flags are public flags",
+        "body": "With Vite, flags are baked into the JavaScript bundle at build time, so anyone can read them. While cleaning up, I found the config also exposed every DB_-prefixed variable to the browser. Only the flag prefix should ever reach the client."
+      }
+    ],
+    "inProject": [
+      {
+        "label": "Flag definitions with defaults",
+        "path": "src/lib/featureFlags.ts"
+      },
+      {
+        "label": "Wrapper component",
+        "path": "src/components/feature/featureEnabled.tsx"
+      },
+      {
+        "label": "Live flag status",
+        "path": "src/pages/options/page.tsx",
+        "route": "/options"
+      }
+    ],
+    "references": [
+      {
+        "title": "Feature Toggles (aka Feature Flags)",
+        "author": "Pete Hodgson",
+        "url": "https://martinfowler.com/articles/feature-toggles.html"
+      },
+      {
+        "title": "Env Variables and Modes",
+        "author": "Vite docs",
+        "url": "https://vite.dev/guide/env-and-mode"
+      }
+    ],
+    "firstContact": "2025-03"
+  },
+  {
     "id": "snake",
     "name": "Snake",
-    "description": "Basic Snake game developed in the React environment.",
-    "heroImage": "",
-    "interactions": [
+    "category": "This project",
+    "summary": "A playable snake game built inside this shop with React state, effects and a timed game loop. A small, fun exercise in handling keyboard input and frequent updates without fighting React's render cycle.",
+    "draft": true,
+    "insights": [
       {
-        "interaction": "foo"
+        "type": "explored",
+        "title": "A game loop is just an interval in an effect",
+        "body": "The snake moves on a fixed interval started inside a useEffect and cleared on cleanup. Restarting the interval whenever the move function changes keeps the loop in sync with the latest state."
+      },
+      {
+        "type": "gotcha",
+        "title": "Keep event handlers inside the effect that uses them",
+        "body": "The keyboard handler used to live outside the effect that registered it, so the linter couldn't verify its dependencies. Moving it inside the effect made the dependency list provably complete without changing behavior."
       }
-    ]
+    ],
+    "inProject": [
+      {
+        "label": "The game",
+        "path": "src/pages/snake/SnakeGame.tsx",
+        "route": "/snake"
+      }
+    ],
+    "references": [
+      {
+        "title": "useEffect",
+        "author": "React docs",
+        "url": "https://react.dev/reference/react/useEffect"
+      }
+    ],
+    "firstContact": "2025-03"
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "category": "Languages",
+    "summary": "TypeScript adds static types to JavaScript, catching whole classes of bugs before the code runs and making large codebases easier to change with confidence. Everything in this shop is written in it.",
+    "draft": true,
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Types are documentation that can't go stale",
+        "body": "Mock insight. A typed props interface tells the next developer exactly what a component expects, and the compiler fails the build if the docs and the code ever disagree."
+      },
+      {
+        "type": "explored",
+        "title": "Deriving types from data",
+        "body": "Mock insight. The feature flag names in this project are derived from the flag definitions object with keyof typeof, so adding a flag automatically makes it a valid prop value everywhere."
+      }
+    ],
+    "inProject": [
+      {
+        "label": "Type derived from data",
+        "path": "src/lib/featureFlags.ts"
+      }
+    ],
+    "references": [
+      {
+        "title": "The TypeScript Handbook",
+        "author": "TypeScript docs",
+        "url": "https://www.typescriptlang.org/docs/handbook/intro.html"
+      }
+    ],
+    "firstContact": "2020-06"
   },
   {
     "id": "use-memo",
     "name": "UseMemo()",
-    "description": "Basic Snake game developed in the React environment.",
-    "heroImage": "",
-    "interactions": [
+    "category": "React",
+    "parentId": "react",
+    "summary": "useMemo caches the result of an expensive calculation between renders, recomputing it only when its inputs change. Useful for heavy derived data, but often unnecessary for cheap values.",
+    "draft": true,
+    "insights": [
       {
-        "interaction": "foo"
+        "type": "opinion",
+        "title": "Measure before memoizing",
+        "body": "Mock insight. Wrapping every value in useMemo adds overhead and noise. I reach for it when a calculation is measurably slow or when a stable reference prevents unnecessary child renders."
+      },
+      {
+        "type": "gotcha",
+        "title": "A memo is only as good as its dependencies",
+        "body": "Mock insight. Passing a new object or array literal as a dependency recreates it on every render, which silently defeats the memoization."
+      }
+    ],
+    "references": [
+      {
+        "title": "useMemo",
+        "author": "React docs",
+        "url": "https://react.dev/reference/react/useMemo"
+      }
+    ],
+    "firstContact": "2019-08"
+  },
+  {
+    "id": "git-operations",
+    "name": "Git operations",
+    "category": "Git operations",
+    "summary": "Day-to-day Git beyond commit and push: branching, rebasing, resolving conflicts, stashing, cherry-picking and safely undoing mistakes. The skills that keep a shared history clean and a team unblocked.",
+    "draft": true,
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Rebase locally, merge publicly",
+        "body": "Mock insight. I rebase my own unpushed branch to keep its history readable, but merge shared branches so nobody's history gets rewritten under them."
+      },
+      {
+        "type": "gotcha",
+        "title": "Revert vs. reset",
+        "body": "Mock insight. git reset rewrites history and is fine for local work. On anything already pushed, git revert is the safe undo, because it adds a new commit instead of removing old ones."
+      }
+    ],
+    "references": [
+      {
+        "title": "Git Branching: Rebasing",
+        "author": "Pro Git book",
+        "url": "https://git-scm.com/book/en/v2/Git-Branching-Rebasing"
+      }
+    ],
+    "firstContact": "2017-03"
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "category": "React",
+    "summary": "React is a library for building user interfaces out of components, where the UI is a function of state. This whole shop is a React app, from the product list to the cart.",
+    "draft": true,
+    "firstContact": "2018-09",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Components are the unit of thinking",
+        "body": "Mock insight. I design a page by splitting it into components first and deciding where each piece of state lives second."
+      }
+    ],
+    "references": [
+      {
+        "title": "React",
+        "author": "React docs",
+        "url": "https://react.dev"
       }
     ]
   },
   {
-    "id": "github",
-    "name": "Github",
-    "description": "Basic Snake game developed in the React environment.",
-    "heroImage": "",
-    "interactions": [
+    "id": "closures",
+    "name": "Closures",
+    "category": "JS fundamentals",
+    "summary": "A closure is a function that remembers the variables from the scope where it was created, even after that scope has finished. It's the mechanism behind callbacks, hooks and private state in JavaScript.",
+    "draft": true,
+    "firstContact": "2017-05",
+    "insights": [
       {
-        "interaction": "foo"
+        "type": "gotcha",
+        "title": "Stale closures in React",
+        "body": "Mock insight. A callback created in one render keeps seeing that render's values, which is why effects need accurate dependency lists."
+      }
+    ],
+    "references": [
+      {
+        "title": "Closures",
+        "author": "MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures"
       }
     ]
   },
   {
-    "id": "typescript",
-    "name": "Typescript",
-    "description": "Basic Snake game developed in the React environment.",
-    "heroImage": "",
-    "interactions": [
+    "id": "hoisting",
+    "name": "Hoisting",
+    "category": "JS fundamentals",
+    "summary": "Hoisting is JavaScript's behavior of registering declarations before code runs, so some names exist before the line that declares them. Function declarations are fully usable early; let and const are not.",
+    "draft": true,
+    "firstContact": "2017-05",
+    "insights": [
       {
-        "interaction": "foo"
+        "type": "gotcha",
+        "title": "The temporal dead zone",
+        "body": "Mock insight. Accessing a let or const before its declaration throws, even though the name is technically hoisted."
+      }
+    ],
+    "references": [
+      {
+        "title": "Hoisting",
+        "author": "MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/Hoisting"
+      }
+    ]
+  },
+  {
+    "id": "event-loop",
+    "name": "Event loop",
+    "category": "JS fundamentals",
+    "summary": "The event loop is how single-threaded JavaScript handles asynchronous work: it runs the call stack to completion, then microtasks like promises, then the next task such as a timer or event.",
+    "draft": true,
+    "firstContact": "2017-11",
+    "insights": [
+      {
+        "type": "explored",
+        "title": "Promises before timers",
+        "body": "Mock insight. A resolved promise callback always runs before a setTimeout of 0, because microtasks drain before the next task."
+      }
+    ]
+  },
+  {
+    "id": "prototypes",
+    "name": "Prototypes",
+    "category": "JS fundamentals",
+    "summary": "Every JavaScript object links to a prototype it can borrow properties from, forming a chain that powers inheritance. Classes in JavaScript are a friendlier syntax over this same mechanism.",
+    "draft": true,
+    "firstContact": "2017-08",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Classes are prototypes in disguise",
+        "body": "Mock insight. Knowing the prototype chain makes class behavior, like method sharing between instances, much less magical."
+      }
+    ],
+    "references": [
+      {
+        "title": "Inheritance and the prototype chain",
+        "author": "MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain"
+      }
+    ]
+  },
+  {
+    "id": "this",
+    "name": "this",
+    "category": "JS fundamentals",
+    "summary": "this refers to the object a function is called on, decided at call time rather than where the function is written. Arrow functions are the exception: they take this from the surrounding scope.",
+    "draft": true,
+    "firstContact": "2017-08",
+    "insights": [
+      {
+        "type": "gotcha",
+        "title": "Losing this in callbacks",
+        "body": "Mock insight. Passing a method as a callback detaches it from its object, so this becomes undefined unless the method is bound or wrapped in an arrow function."
+      }
+    ],
+    "references": [
+      {
+        "title": "this",
+        "author": "MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this"
+      }
+    ]
+  },
+  {
+    "id": "memory-handling",
+    "name": "Memory handling",
+    "category": "JS fundamentals",
+    "summary": "JavaScript frees memory automatically through garbage collection, reclaiming objects nothing can reach anymore. Leaks happen when something still holds a reference, like a forgotten listener or timer.",
+    "draft": true,
+    "firstContact": "2019-04",
+    "insights": [
+      {
+        "type": "in-production",
+        "title": "Cleaning up effects",
+        "body": "Mock insight. Every listener, interval or subscription started in an effect gets removed in its cleanup, which prevents leaks when components unmount."
+      }
+    ],
+    "references": [
+      {
+        "title": "Memory management",
+        "author": "MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management"
+      }
+    ]
+  },
+  {
+    "id": "arrays-vs-objects",
+    "name": "Arrays vs objects",
+    "category": "Data structures",
+    "summary": "Arrays hold ordered lists accessed by position; objects hold named values accessed by key. Choosing the right one decides how fast lookups, inserts and iterations will be.",
+    "draft": true,
+    "firstContact": "2017-06",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Lookups want objects or maps",
+        "body": "Mock insight. When I search a list by ID repeatedly, I index it into an object or Map once instead of scanning the array every time."
+      }
+    ]
+  },
+  {
+    "id": "big-o-notation",
+    "name": "Big O notation",
+    "category": "Data structures",
+    "summary": "Big O describes how an algorithm's cost grows as its input grows, like constant, linear or quadratic. It's a quick way to compare approaches before writing any code.",
+    "draft": true,
+    "firstContact": "2018-02",
+    "insights": [
+      {
+        "type": "explored",
+        "title": "Nested loops are the usual suspect",
+        "body": "Mock insight. Most slow code I've profiled came down to a loop inside a loop over the same data."
+      }
+    ]
+  },
+  {
+    "id": "sorting-types",
+    "name": "Sorting types",
+    "category": "Data structures",
+    "summary": "Sorting algorithms put data in order with different trade-offs in speed, memory and stability, from simple bubble sort to merge sort and quicksort. JavaScript's built-in sort covers most real needs.",
+    "draft": true,
+    "firstContact": "2018-02",
+    "insights": [
+      {
+        "type": "gotcha",
+        "title": "Default sort compares strings",
+        "body": "Mock insight. Array.prototype.sort converts values to strings by default, so numbers need an explicit compare function."
+      }
+    ],
+    "references": [
+      {
+        "title": "Array.prototype.sort()",
+        "author": "MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort"
+      }
+    ]
+  },
+  {
+    "id": "array-patterns",
+    "name": "Common patterns (map/filter/reduce)",
+    "category": "Data structures",
+    "summary": "map, filter and reduce transform arrays without manual loops: map changes each item, filter keeps some, and reduce combines them into one value. They make data transformations short and readable.",
+    "draft": true,
+    "firstContact": "2017-09",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "reduce is powerful but not always clearer",
+        "body": "Mock insight. For simple sums I use reduce; for anything more complex, a plain loop is often easier for the next reader."
+      }
+    ],
+    "references": [
+      {
+        "title": "Array.prototype.reduce()",
+        "author": "MDN",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
+      }
+    ]
+  },
+  {
+    "id": "state",
+    "name": "State",
+    "category": "React",
+    "summary": "State is data a component remembers between renders, and changing it tells React to render again. Deciding where each piece of state lives shapes the whole component tree.",
+    "draft": true,
+    "firstContact": "2018-09",
+    "insights": [
+      {
+        "type": "in-production",
+        "title": "Never mutate state",
+        "body": "Updating an array in place keeps the same reference, so React skips the re-render. Always pass a new array or object."
+      }
+    ],
+    "parentId": "react",
+    "references": [
+      {
+        "title": "State: A Component's Memory",
+        "author": "React docs",
+        "url": "https://react.dev/learn/state-a-components-memory"
+      }
+    ]
+  },
+  {
+    "id": "hooks",
+    "name": "Hooks (useState/useEffect/useMemo/useCallback)",
+    "category": "React",
+    "summary": "Hooks let function components use React features like state, side effects and memoization. They follow strict rules: called at the top level and in the same order every render.",
+    "draft": true,
+    "firstContact": "2019-03",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Effects are for syncing, not for computing",
+        "body": "Mock insight. If a value can be calculated during render, it doesn't need an effect or extra state."
+      }
+    ],
+    "parentId": "react",
+    "references": [
+      {
+        "title": "Built-in React Hooks",
+        "author": "React docs",
+        "url": "https://react.dev/reference/react/hooks"
+      }
+    ]
+  },
+  {
+    "id": "reconciliation",
+    "name": "Reconciliation",
+    "category": "React",
+    "summary": "Reconciliation is how React compares the new UI description with the previous one and applies only the differences to the page. It's why re-rendering is cheaper than it sounds.",
+    "draft": true,
+    "firstContact": "2019-06",
+    "insights": [
+      {
+        "type": "explored",
+        "title": "Same position, same component, same state",
+        "body": "Mock insight. React keeps state as long as the same component renders in the same place in the tree."
+      }
+    ],
+    "parentId": "react",
+    "references": [
+      {
+        "title": "Preserving and Resetting State",
+        "author": "React docs",
+        "url": "https://react.dev/learn/preserving-and-resetting-state"
+      }
+    ]
+  },
+  {
+    "id": "keys",
+    "name": "Keys",
+    "category": "React",
+    "summary": "Keys tell React which list item is which between renders, so it can reorder, add or remove items correctly. A stable, unique ID makes a good key; the array index usually doesn't.",
+    "draft": true,
+    "firstContact": "2018-10",
+    "insights": [
+      {
+        "type": "in-production",
+        "title": "Keys on the outermost element",
+        "body": "In this shop, a key placed inside a fragment instead of on it caused React's missing-key warning."
+      }
+    ],
+    "parentId": "react",
+    "references": [
+      {
+        "title": "Rendering Lists",
+        "author": "React docs",
+        "url": "https://react.dev/learn/rendering-lists"
+      }
+    ]
+  },
+  {
+    "id": "context",
+    "name": "Context",
+    "category": "React",
+    "summary": "Context passes data deep into the component tree without threading props through every level. It fits app-wide values like theme or cart, but every consumer re-renders when its value changes.",
+    "draft": true,
+    "firstContact": "2019-05",
+    "insights": [
+      {
+        "type": "in-production",
+        "title": "Split the provider from the hook",
+        "body": "Keeping the provider and its hook in separate files keeps Fast Refresh working while editing."
+      }
+    ],
+    "parentId": "react",
+    "inProject": [
+      {
+        "label": "Cart context",
+        "path": "src/contexts/cartContext.ts"
+      },
+      {
+        "label": "Theme context",
+        "path": "src/contexts/themeContext.ts",
+        "route": "/options"
+      }
+    ],
+    "references": [
+      {
+        "title": "Passing Data Deeply with Context",
+        "author": "React docs",
+        "url": "https://react.dev/learn/passing-data-deeply-with-context"
+      }
+    ]
+  },
+  {
+    "id": "synthetic-events",
+    "name": "Event listeners / synthetic events",
+    "category": "React",
+    "summary": "React wraps browser events in its own synthetic events, giving one consistent API across browsers. Handlers are attached declaratively in JSX instead of with addEventListener.",
+    "draft": true,
+    "firstContact": "2018-11",
+    "insights": [
+      {
+        "type": "gotcha",
+        "title": "Global listeners still need effects",
+        "body": "Mock insight. Events outside the component, like window keydown, are attached in an effect and must be removed in its cleanup."
+      }
+    ],
+    "parentId": "react",
+    "references": [
+      {
+        "title": "Responding to Events",
+        "author": "React docs",
+        "url": "https://react.dev/learn/responding-to-events"
+      }
+    ]
+  },
+  {
+    "id": "vanilla-css",
+    "name": "Vanilla CSS (box model, specificity, flex/grid)",
+    "category": "Styling",
+    "summary": "Plain CSS fundamentals: how the box model sizes elements, how specificity decides which rule wins, and how flexbox and grid lay out pages. Everything else in styling builds on these.",
+    "draft": true,
+    "firstContact": "2011-04",
+    "insights": [
+      {
+        "type": "in-production",
+        "title": "Specificity ties go to the last rule",
+        "body": "In this shop, a dark-mode media query silently overrode the light theme because it came later in the file with the same specificity."
+      }
+    ]
+  },
+  {
+    "id": "scss",
+    "name": "SCSS (nesting, mixins, variables)",
+    "category": "Styling",
+    "summary": "SCSS extends CSS with nesting, variables, mixins and functions, compiled down to plain CSS. It made large stylesheets maintainable before CSS gained native variables and nesting.",
+    "draft": true,
+    "firstContact": "2017-10",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Native CSS caught up",
+        "body": "Mock insight. With custom properties and native nesting, I reach for SCSS less often than I used to."
+      }
+    ],
+    "references": [
+      {
+        "title": "Sass documentation",
+        "author": "Sass",
+        "url": "https://sass-lang.com/documentation/"
+      }
+    ]
+  },
+  {
+    "id": "tailwind",
+    "name": "Tailwind (utility-first, config, purge)",
+    "category": "Styling",
+    "summary": "Tailwind styles elements with small utility classes directly in the markup, generating only the CSS that's actually used. This shop is styled almost entirely with it.",
+    "draft": true,
+    "firstContact": "2021-02",
+    "insights": [
+      {
+        "type": "explored",
+        "title": "Utilities plus variants",
+        "body": "Mock insight. Combining utilities with a variants helper like cva keeps repeated button styles in one place."
+      }
+    ],
+    "references": [
+      {
+        "title": "Tailwind CSS documentation",
+        "author": "Tailwind CSS",
+        "url": "https://tailwindcss.com/docs"
+      }
+    ]
+  },
+  {
+    "id": "rendering-pipeline",
+    "name": "Rendering pipeline",
+    "category": "Browser and performance",
+    "summary": "The browser turns HTML and CSS into pixels in stages: building the DOM and styles, calculating layout, painting and compositing. Knowing the stages explains why some changes are cheap and others are slow.",
+    "draft": true,
+    "firstContact": "2020-03",
+    "insights": [
+      {
+        "type": "explored",
+        "title": "Layout is the expensive step",
+        "body": "Mock insight. Animating transform and opacity skips layout, which is why they animate more smoothly than width or top."
+      }
+    ]
+  },
+  {
+    "id": "critical-rendering-path",
+    "name": "Critical rendering path",
+    "category": "Browser and performance",
+    "summary": "The critical rendering path is the minimum work the browser must do before showing the first pixels. Shortening it, by deferring scripts and trimming render-blocking CSS, makes pages appear faster.",
+    "draft": true,
+    "firstContact": "2020-05",
+    "insights": [
+      {
+        "type": "in-production",
+        "title": "A tiny inline script beats a flash",
+        "body": "This shop applies the saved theme with a small inline script before React loads, avoiding a flash of the wrong theme."
+      }
+    ],
+    "references": [
+      {
+        "title": "Understand the critical path",
+        "author": "web.dev",
+        "url": "https://web.dev/articles/critical-rendering-path"
+      }
+    ]
+  },
+  {
+    "id": "lazy-loading",
+    "name": "Lazy loading",
+    "category": "Browser and performance",
+    "summary": "Lazy loading delays loading code or media until it's actually needed, like an image scrolling into view or a page being opened. It cuts initial load time without removing features.",
+    "draft": true,
+    "firstContact": "2020-08",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Split by route first",
+        "body": "Mock insight. Route-level code splitting is usually the biggest, easiest lazy-loading win in a single-page app."
+      }
+    ],
+    "references": [
+      {
+        "title": "lazy",
+        "author": "React docs",
+        "url": "https://react.dev/reference/react/lazy"
+      }
+    ]
+  },
+  {
+    "id": "bundling-basics",
+    "name": "Bundling basics",
+    "category": "Browser and performance",
+    "summary": "Bundlers combine many source files into a few optimized files for the browser, handling imports, minification and dead-code removal. This shop is bundled with Vite.",
+    "draft": true,
+    "firstContact": "2019-09",
+    "insights": [
+      {
+        "type": "in-production",
+        "title": "Dead code really disappears",
+        "body": "A component rendered only in development was left out of the production bundle entirely, which is easy to verify by searching the built file."
+      }
+    ],
+    "references": [
+      {
+        "title": "Vite guide",
+        "author": "Vite docs",
+        "url": "https://vite.dev/guide/"
+      }
+    ]
+  },
+  {
+    "id": "branching-strategies",
+    "name": "Branching strategies",
+    "category": "Git operations",
+    "summary": "Branching strategies define how a team uses branches, from short-lived feature branches merged often to longer release branches. The right one balances speed with stability.",
+    "draft": true,
+    "firstContact": "2018-01",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Short branches, small merges",
+        "body": "Mock insight. The longer a branch lives, the harder its merge gets, so I keep feature branches small."
+      }
+    ],
+    "parentId": "git-operations"
+  },
+  {
+    "id": "merge-vs-rebase",
+    "name": "Merge vs rebase",
+    "category": "Git operations",
+    "summary": "Merging joins two branches with a merge commit, preserving history as it happened; rebasing replays commits on top of another branch for a straight line. Both integrate work, with different histories.",
+    "draft": true,
+    "firstContact": "2018-04",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Rebase locally, merge publicly",
+        "body": "Mock insight. I rebase my own unpushed work for readability and merge anything shared."
+      }
+    ],
+    "parentId": "git-operations",
+    "references": [
+      {
+        "title": "Git Branching: Rebasing",
+        "author": "Pro Git book",
+        "url": "https://git-scm.com/book/en/v2/Git-Branching-Rebasing"
+      }
+    ]
+  },
+  {
+    "id": "conflict-resolution",
+    "name": "Conflict resolution",
+    "category": "Git operations",
+    "summary": "A conflict happens when two branches change the same lines, and Git needs a person to decide the result. Resolving it well means understanding both changes, not just picking one side.",
+    "draft": true,
+    "firstContact": "2018-02",
+    "insights": [
+      {
+        "type": "explored",
+        "title": "Read both sides before choosing",
+        "body": "Mock insight. Most bad merges I've seen came from accepting one side wholesale without reading the other change."
+      }
+    ],
+    "parentId": "git-operations",
+    "references": [
+      {
+        "title": "git-merge",
+        "author": "Git docs",
+        "url": "https://git-scm.com/docs/git-merge"
+      }
+    ]
+  },
+  {
+    "id": "revert-vs-reset",
+    "name": "Rollback / revert vs reset",
+    "category": "Git operations",
+    "summary": "git revert undoes a commit by adding a new one that reverses it, keeping history intact; git reset moves the branch back and can discard commits. Revert is the safe choice for shared history.",
+    "draft": true,
+    "firstContact": "2018-06",
+    "insights": [
+      {
+        "type": "gotcha",
+        "title": "Never reset what others have pulled",
+        "body": "Mock insight. Resetting a pushed branch rewrites history under your teammates; revert avoids that."
+      }
+    ],
+    "parentId": "git-operations",
+    "references": [
+      {
+        "title": "git-revert",
+        "author": "Git docs",
+        "url": "https://git-scm.com/docs/git-revert"
+      }
+    ]
+  },
+  {
+    "id": "stash",
+    "name": "Stash",
+    "category": "Git operations",
+    "summary": "git stash shelves uncommitted changes so you can switch tasks with a clean working tree, then bring them back later. Handy for quick context switches.",
+    "draft": true,
+    "firstContact": "2018-03",
+    "insights": [
+      {
+        "type": "opinion",
+        "title": "Stashes are easy to forget",
+        "body": "Mock insight. For anything longer than a quick switch, a work-in-progress commit on a branch is safer than a stash."
+      }
+    ],
+    "parentId": "git-operations",
+    "references": [
+      {
+        "title": "git-stash",
+        "author": "Git docs",
+        "url": "https://git-scm.com/docs/git-stash"
+      }
+    ]
+  },
+  {
+    "id": "cherry-pick",
+    "name": "Cherry-pick",
+    "category": "Git operations",
+    "summary": "git cherry-pick copies a specific commit from one branch onto another, without merging everything else. Useful for bringing a single fix into a release branch.",
+    "draft": true,
+    "firstContact": "2019-01",
+    "insights": [
+      {
+        "type": "explored",
+        "title": "Duplicates, not moves",
+        "body": "Mock insight. A cherry-picked commit is a new commit with a new hash, so the same change can appear twice in history."
+      }
+    ],
+    "parentId": "git-operations",
+    "references": [
+      {
+        "title": "git-cherry-pick",
+        "author": "Git docs",
+        "url": "https://git-scm.com/docs/git-cherry-pick"
+      }
+    ]
+  },
+  {
+    "id": "dev-tooling",
+    "name": "Claude Code workspace / dev tooling setup",
+    "category": "Engineering practices",
+    "summary": "Setting up a reliable local development environment, from Node version management to AI coding tools, so every new terminal works the same way. Small setup issues cost real time when they go unnoticed.",
+    "draft": true,
+    "firstContact": "2026-09",
+    "insights": [
+      {
+        "type": "gotcha",
+        "title": "Global npm packages are per Node version",
+        "body": "With nvm, a globally installed CLI only exists for the Node version it was installed under. Installing it under the default version fixed a command-not-found error in new terminals."
+      }
+    ],
+    "references": [
+      {
+        "title": "nvm",
+        "author": "nvm-sh on GitHub",
+        "url": "https://github.com/nvm-sh/nvm"
       }
     ]
   }
