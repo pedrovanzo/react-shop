@@ -1,4 +1,5 @@
 import Navbar from "../../components/navigation/navbar";
+import ThreeColumnLayout from "../../components/layout/threeColumnLayout";
 import data from "./data.json";
 import numberArray from "./numberArray.json";
 export default function Sandbox() {
@@ -20,62 +21,64 @@ export default function Sandbox() {
     return (
         <>
             <Navbar />
-            <div className="flex flex-col gap-8">
-                <div className="flex flex-row divide-x divide-default">
-                    <ul className="pr-6">
-                        <li className="">default names</li>
-                        {defaultArray?.map((item, index) => {
-                            return (
-                                <li key={index}>
-                                    {"index: " + index + " - " + item}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    <ul className="pl-6">
-                        <li className="">crescent a-z</li>
-                        {sorteaz?.map((item, index) => {
-                            return (
-                                <li key={index}>
-                                    {"index: " + index + " - " + item}
-                                </li>
-                            );
-                        })}
-                    </ul>
+            <ThreeColumnLayout>
+                <div className="flex flex-col gap-8">
+                    <div className="flex flex-row divide-x divide-default">
+                        <ul className="pr-6">
+                            <li className="">default names</li>
+                            {defaultArray?.map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        {"index: " + index + " - " + item}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                        <ul className="pl-6">
+                            <li className="">crescent a-z</li>
+                            {sorteaz?.map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        {"index: " + index + " - " + item}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                    <div className="flex flex-row divide-x divide-default">
+                        <ul className="pr-6">
+                            <li className="">default numbers</li>
+                            {numberArray?.map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        {"index: " + index + " - " + item}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                        <ul className="px-6">
+                            <li className="">even numbers</li>
+                            {sortNumberEven?.map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        {"index: " + index + " - " + item}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                        <ul className="pl-6">
+                            <li className="">odd numbers</li>
+                            {sortNumberOdd?.map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        {"index: " + index + " - " + item}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
                 </div>
-                <div className="flex flex-row divide-x divide-default">
-                    <ul className="pr-6">
-                        <li className="">default numbers</li>
-                        {numberArray?.map((item, index) => {
-                            return (
-                                <li key={index}>
-                                    {"index: " + index + " - " + item}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    <ul className="px-6">
-                        <li className="">even numbers</li>
-                        {sortNumberEven?.map((item, index) => {
-                            return (
-                                <li key={index}>
-                                    {"index: " + index + " - " + item}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    <ul className="pl-6">
-                        <li className="">odd numbers</li>
-                        {sortNumberOdd?.map((item, index) => {
-                            return (
-                                <li key={index}>
-                                    {"index: " + index + " - " + item}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </div>
-            </div>
+            </ThreeColumnLayout>
         </>
     );
 }

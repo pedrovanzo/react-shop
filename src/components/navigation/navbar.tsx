@@ -1,8 +1,10 @@
+import { ReactNode } from "react";
 import { Link } from "react-router";
 import { useCart } from "../../contexts/cartContext";
 import { FeatureEnabled } from "../feature/featureEnabled";
 import { FEATURE_FLAGS } from "../../lib/featureFlags";
-export default function Navbar() {
+// actions: optional page-specific controls shown at the right end of the navbar
+export default function Navbar({ actions }: { actions?: ReactNode }) {
     const { cart } = useCart();
     return (
         <>
@@ -55,6 +57,7 @@ export default function Navbar() {
                             <span>snake (feature flag disabled)</span>
                         )}
                     </li>
+                    {actions && <li className="ml-auto">{actions}</li>}
                 </ul>
             </nav>
         </>
