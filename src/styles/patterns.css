@@ -1,0 +1,53 @@
+/*
+  Text patterns: a pattern shown only inside the letters (background-clip: text).
+
+  Usage: combine .pattern-text with one pattern class, e.g. "pattern-text pattern-bauhaus".
+  A pattern class only sets --pattern-image and --pattern-size, so adding a new pattern
+  means adding one class here and registering it in components/pattern/patternText.tsx.
+
+  Gray tones are mixed from the theme colors, so patterns follow light and dark mode.
+*/
+
+.pattern-text {
+  --pattern-tone-1: var(--color-default);
+  --pattern-tone-2: color-mix(in oklch, var(--color-default) 78%, var(--color-contrast));
+  --pattern-tone-3: color-mix(in oklch, var(--color-default) 62%, var(--color-contrast));
+  --pattern-tone-4: color-mix(in oklch, var(--color-default) 40%, var(--color-contrast));
+  color: var(--color-default);
+}
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .pattern-text {
+    background-image: var(--pattern-image);
+    background-size: var(--pattern-size);
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/*
+  Bauhaus: a 2x2 grid of gray squares, each with a quarter or half circle.
+  The tile is sized in em, so the pattern scales with the font size.
+    top-left: quarter circle   | top-right: half circle (facing left)
+    bottom-left: half circle   | bottom-right: quarter circle
+*/
+.pattern-bauhaus {
+  --tile: 1.65em;
+  --cell: calc(var(--tile) / 2);
+  --quarter: calc(var(--tile) / 4);
+  --pattern-size: var(--tile) var(--tile);
+  --pattern-image:
+    /* top-left quarter circle */
+    radial-gradient(circle at 0 0, var(--pattern-tone-4) var(--cell), #0000 var(--cell)),
+    /* top-right half circle */
+    radial-gradient(circle at var(--tile) var(--quarter), var(--pattern-tone-1) var(--quarter), #0000 var(--quarter)),
+    /* bottom-right quarter circle */
+    radial-gradient(circle at var(--tile) var(--tile), var(--pattern-tone-3) var(--cell), #0000 var(--cell)),
+    /* bottom-left half circle */
+    radial-gradient(circle at 0 calc(var(--cell) + var(--quarter)), var(--pattern-tone-2) var(--quarter), #0000 var(--quarter)),
+    /* base squares, clockwise from top-right: top-right, bottom-right, bottom-left, top-left */
+    conic-gradient(var(--pattern-tone-3) 0 25%, var(--pattern-tone-1) 0 50%, var(--pattern-tone-4) 0 75%, var(--pattern-tone-2) 0);
+}
