@@ -24,7 +24,7 @@ export default function Cart() {
         <>
             <Navbar />
             <ThreeColumnLayout>
-                <div className="mx-auto max-w-xl my-2 flex flex-row gap-2 items-center">
+                <div className="my-2 flex flex-row gap-2 items-center">
                     {cart.length > 0 ? (
                         <IoCart className="text-default" size="24" />
                     ) : (
@@ -32,7 +32,7 @@ export default function Cart() {
                     )}
                     <div className="w-full h-0.5 bg-default"></div>
                 </div>
-                <div className="mx-auto w-full max-w-xl">
+                <div className="w-full">
                     {cart.length > 0 ? (
                         <>
                             <ul className="flex flex-col gap-2">

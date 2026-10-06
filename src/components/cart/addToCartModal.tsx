@@ -8,13 +8,16 @@ import LoadingSpinnerIcon from "../loading/spinnerIcon";
 const REDIRECT_SECONDS = 5;
 
 interface AddToCartModalProps {
+    // What is being added, e.g. a product name or "6 JS fundamentals products"
     productName: string;
+    // True when productName describes several products (adjusts the wording)
+    plural?: boolean;
     onConfirm: () => void;
     onClose: () => void;
 }
 
 // One modal instance for both steps (confirm, then added) to avoid flicker between them
-export default function AddToCartModal({ productName, onConfirm, onClose }: AddToCartModalProps) {
+export default function AddToCartModal({ productName, plural = false, onConfirm, onClose }: AddToCartModalProps) {
     const navigate = useNavigate();
     const [isAdded, setIsAdded] = useState(false);
     const [secondsLeft, setSecondsLeft] = useState(REDIRECT_SECONDS);
@@ -43,7 +46,7 @@ export default function AddToCartModal({ productName, onConfirm, onClose }: AddT
                             aria-hidden="true"
                         />
                         <p className="text-lg motion-safe:animate-fade-up [animation-delay:150ms]">
-                            <span className="font-semibold">{productName}</span> is in your cart!
+                            <span className="font-semibold">{productName}</span> {plural ? "are" : "is"} in your cart!
                         </p>
                     </div>
                     <div
