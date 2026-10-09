@@ -1,16 +1,16 @@
 import { FaRegFileImage } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 
-interface ProductImagePlaceholderProps {
+interface SkillImagePlaceholderProps {
     // Resize by passing a size class, e.g. "size-40"; the icon scales with it
     className?: string;
     label?: string;
 }
 
-export default function ProductImagePlaceholder({
+export default function SkillImagePlaceholder({
     className,
     label,
-}: ProductImagePlaceholderProps) {
+}: SkillImagePlaceholderProps) {
     return (
         <div
             className={twMerge(

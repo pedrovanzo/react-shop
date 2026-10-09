@@ -1,23 +1,23 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
-import { IoCart } from "react-icons/io5";
+import { GiAnvilImpact } from "react-icons/gi";
 import ConfirmModal from "../../components/modal/confirmModal";
 import {
     SIMULATED_DELAY,
     useSimulatedLoading,
 } from "../../hooks/useSimulatedLoading";
 import LoadingSpinner from "../../components/loading/spinner";
-import { useCart } from "../../contexts/cartContext";
+import { useBuild } from "../../contexts/buildContext";
 import Navbar from "../../components/navigation/navbar";
 import ThreeColumnLayout from "../../components/layout/threeColumnLayout";
 import Button from "../../components/button/button";
-import ProductImagePlaceholder from "../../components/product/productImagePlaceholder";
-import ProductItemOfList from "../../components/list/item/product";
-import AddToCartModal from "../../components/cart/addToCartModal";
-import { InsightType } from "../../interfaces/product";
-import { getChildProducts, getProductById, getProductByName, getRelatedProducts } from "../../data/products";
-import TopicTag from "../../components/product/topicTag";
-import { productPath } from "../../lib/productPath";
+import SkillImagePlaceholder from "../../components/skill/skillImagePlaceholder";
+import SkillItemOfList from "../../components/list/item/skill";
+import EquipModal from "../../components/build/equipModal";
+import { InsightType } from "../../interfaces/skill";
+import { getChildSkills, getSkillById, getSkillByName, getRelatedSkills, getSkillsInTopic } from "../../data/skills";
+import TopicTag from "../../components/skill/topicTag";
+import { skillPath } from "../../lib/skillPath";
 import NotFound from "../notFound/page";
 
 const insightTypeLabels: Record<InsightType, string> = {
@@ -31,67 +31,71 @@ function SectionTitle({ children }: { children: string }) {
     return <h2 className="text-xl font-semibold tracking-tight">{children}</h2>;
 }
 
-export default function Product() {
+export default function Skill() {
     const { name } = useParams();
-    const product = getProductByName(name);
+    const skill = getSkillByName(name);
     const navigate = useNavigate();
     // Document loads first, then user
     const isDocLoading = useSimulatedLoading();
     const userIsLoading = useSimulatedLoading(SIMULATED_DELAY * 2);
-    const { cart, setCart } = useCart();
+    const { build, setBuild } = useBuild();
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
-    // Filters of the products list this page was opened from, if any
+    // Filters of the skills list this page was opened from, if any
     const location = useLocation();
-    const productsSearch: string = location.state?.productsSearch ?? "";
-    if (!product) return <NotFound />;
+    const skillsSearch: string = location.state?.skillsSearch ?? "";
+    if (!skill) return <NotFound />;
     if (isDocLoading)
         return (
             <div className="absolute inset-0 w-full h-screen flex items-center justify-center">
                 <LoadingSpinner />
             </div>
         );
-    const parent = getProductById(product.parentId);
-    const isInCart = cart.some((item) => item.productName === product.name);
-    const children = getChildProducts(product.id);
-    const related = getRelatedProducts(product);
+    const parent = getSkillById(skill.parentId);
+    const isEquipped = build.some((item) => item.skillName === skill.name);
+    // Skills are equipped by topic: equipping from here adds every skill in this one's topic
+    const topicSkills = getSkillsInTopic(skill.category);
+    const equippedNames = new Set(build.map((item) => item.skillName));
+    const topicSkillsToEquip = topicSkills.filter((item) => !equippedNames.has(item.name));
+    const children = getChildSkills(skill.id);
+    const related = getRelatedSkills(skill);
     return (
         <>
             <Navbar />
             <ThreeColumnLayout>
                 <article className="mx-auto w-full max-w-3xl flex flex-col gap-10 text-default">
                     <header className="flex flex-col sm:flex-row items-start gap-6">
-                        <ProductImagePlaceholder className="size-28 sm:size-32" />
+                        <SkillImagePlaceholder className="size-28 sm:size-32" />
                         <div className="flex flex-col gap-3 min-w-0">
                             {/* Title, then the eyebrow (parent, category, draft) right below it */}
                             <div className="flex flex-col gap-1">
-                                {/* Title on the left, "Return to Products" at the far right of the same line */}
+                                {/* Title on the left, "Return to Skill Shop" at the far right of the same line */}
                                 <div className="flex flex-row flex-wrap items-center justify-between gap-x-6 gap-y-2">
                                     <h1 className="text-3xl sm:text-4xl font-semibold tracking-[-0.02em] leading-tight">
-                                        {product.name}
+                                        {skill.name}
                                     </h1>
                                     <Button
                                         variant="text"
                                         className="shrink-0"
-                                        onClick={() => navigate(`/products${productsSearch ? `?${productsSearch}` : ""}`)}
+                                        onClick={() => navigate(`/skill-shop${skillsSearch ? `?${skillsSearch}` : ""}`)}
                                     >
-                                        Return to Products
+                                        Return to Skill Shop
                                     </Button>
                                 </div>
                                 <div className="flex flex-row flex-wrap items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-default/50">
                                     {parent && (
-                                        <Link to={{ pathname: productPath(parent.name) }} className="hover:text-default">
+                                        <Link to={{ pathname: skillPath(parent.name) }} className="hover:text-default">
                                             {parent.name}
                                         </Link>
                                     )}
                                     {/* Skip the category when it repeats the parent's name (e.g. Git operations / Git operations) */}
-                                    {product.category !== parent?.name && (
+                                    {skill.category !== parent?.name && (
                                         <>
                                             {parent && <span aria-hidden="true">/</span>}
-                                            <span>{product.category}</span>
+                                            <span>{skill.category}</span>
                                         </>
                                     )}
-                                    {product.draft && (
+                                    {skill.draft && (
                                         <span className="rounded-full px-1.5 normal-case tracking-normal bg-default/10 text-default/70">
                                             Draft content
                                         </span>
@@ -99,33 +103,33 @@ export default function Product() {
                                 </div>
                             </div>
                             <p className="text-lg font-light leading-relaxed text-default/70">
-                                {product.summary}
+                                {skill.summary}
                             </p>
                             <div className="flex flex-row flex-wrap items-center gap-4">
                                 {userIsLoading ? (
                                     <LoadingSpinner text="loading user" />
-                                ) : isInCart ? (
-                                    // Cart-aware: same states as the products list (blue "In cart", red remove)
+                                ) : isEquipped ? (
+                                    // Build-aware: same states as the skills list (blue "Equipped", red remove)
                                     <div className="flex flex-row flex-wrap items-center gap-3">
                                         <Link
-                                            to={{ pathname: "/cart" }}
-                                            title="Go to cart"
+                                            to={{ pathname: "/build" }}
+                                            title="Go to build"
                                             className="flex flex-row items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium bg-blue-500/15 text-blue-500 transition-colors hover:bg-blue-500/25"
                                         >
-                                            <IoCart className="size-4" aria-hidden="true" />
-                                            In cart
+                                            <GiAnvilImpact className="size-4" aria-hidden="true" />
+                                            Equipped
                                         </Link>
                                         <Button
                                             variant="text"
                                             className="transition-colors hover:text-red-500"
                                             onClick={() => setIsRemoveModalOpen(true)}
                                         >
-                                            Remove from cart
+                                            Remove topic from build
                                         </Button>
                                     </div>
                                 ) : (
                                     <Button variant="primary" onClick={() => setIsAddModalOpen(true)}>
-                                        Add to cart
+                                        Equip topic
                                     </Button>
                                 )}
                             </div>
@@ -145,11 +149,11 @@ export default function Product() {
                         </section>
                     )}
 
-                    {product.insights.length > 0 && (
+                    {skill.insights.length > 0 && (
                         <section className="flex flex-col gap-4">
                             <SectionTitle>Insights</SectionTitle>
                             <ul className="flex flex-col gap-3">
-                                {product.insights.map((insight) => (
+                                {skill.insights.map((insight) => (
                                     <li key={insight.title} className="flex flex-col gap-2 rounded-lg p-4 bg-default/5">
                                         <span className="text-xs font-medium uppercase tracking-widest text-default/50">
                                             {insightTypeLabels[insight.type]}
@@ -169,10 +173,10 @@ export default function Product() {
                                 {children.map((child) => (
                                     <li key={child.id}>
                                         <Link
-                                            to={{ pathname: productPath(child.name) }}
+                                            to={{ pathname: skillPath(child.name) }}
                                             className="block rounded-lg p-2 -m-2 hover:bg-default/5"
                                         >
-                                            <ProductItemOfList product={child} />
+                                            <SkillItemOfList skill={child} />
                                         </Link>
                                     </li>
                                 ))}
@@ -180,11 +184,11 @@ export default function Product() {
                         </section>
                     )}
 
-                    {product.inProject && product.inProject.length > 0 && (
+                    {skill.inProject && skill.inProject.length > 0 && (
                         <section className="flex flex-col gap-4">
                             <SectionTitle>See it in this project</SectionTitle>
                             <ul className="flex flex-col gap-2">
-                                {product.inProject.map((example) => (
+                                {skill.inProject.map((example) => (
                                     <li key={example.path + example.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3">
                                         <span>{example.label}</span>
                                         <code className="text-sm text-default/60 break-all">{example.path}</code>
@@ -199,11 +203,11 @@ export default function Product() {
                         </section>
                     )}
 
-                    {product.references && product.references.length > 0 && (
+                    {skill.references && skill.references.length > 0 && (
                         <section className="flex flex-col gap-4">
                             <SectionTitle>References</SectionTitle>
                             <ul className="flex flex-col gap-2">
-                                {product.references.map((reference) => (
+                                {skill.references.map((reference) => (
                                     <li key={reference.url}>
                                         <a
                                             href={reference.url}
@@ -224,24 +228,31 @@ export default function Product() {
                 </article>
                 {isRemoveModalOpen && (
                     <ConfirmModal
-                        title="Remove item"
-                        message={`Remove ${product.name} from the cart?`}
+                        title="Remove topic"
+                        message={`Remove the ${skill.category} topic (${topicSkills.length} skills) from the build?`}
                         confirmLabel="Remove"
                         cancelLabel="Cancel"
-                        onConfirm={() =>
-                            // Removes every entry of this product, in case it was added more than once
-                            setCart((currentCart) =>
-                                currentCart.filter((item) => item.productName !== product.name)
-                            )
-                        }
+                        onConfirm={() => {
+                            // Removes every skill in this topic, including repeated entries
+                            const topicNames = new Set(topicSkills.map((item) => item.name));
+                            setBuild((currentBuild) => currentBuild.filter((item) => !topicNames.has(item.skillName)));
+                        }}
                         onClose={() => setIsRemoveModalOpen(false)}
                     />
                 )}
                 {isAddModalOpen && (
-                    <AddToCartModal
-                        productName={product.name}
+                    <EquipModal
+                        skillName={
+                            topicSkillsToEquip.length === 1
+                                ? topicSkillsToEquip[0].name
+                                : `${topicSkillsToEquip.length} ${skill.category} skills`
+                        }
+                        plural={topicSkillsToEquip.length > 1}
                         onConfirm={() =>
-                            setCart((currentCart) => [...currentCart, { productName: product.name }])
+                            setBuild((currentBuild) => [
+                                ...currentBuild,
+                                ...topicSkillsToEquip.map((item) => ({ skillName: item.name })),
+                            ])
                         }
                         onClose={() => setIsAddModalOpen(false)}
                     />

@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
-import ProductImagePlaceholder from "../../product/productImagePlaceholder";
+import SkillImagePlaceholder from "../../skill/skillImagePlaceholder";
 
-interface ProductItemLayoutProps {
+interface SkillItemLayoutProps {
     title: ReactNode;
     description: ReactNode;
-    // Optional small label above the title, e.g. the parent product's name
+    // Optional small label above the title, e.g. the parent skill's name
     badge?: ReactNode;
-    // Optional highlighted label, e.g. "In cart"; stays fully visible when the item is muted
+    // Optional highlighted label, e.g. "Equipped"; stays fully visible when the item is muted
     status?: ReactNode;
-    // Muted: dims the image and text, e.g. for items already in the cart
+    // Muted: dims the image and text, e.g. for items already in the build
     muted?: boolean;
     // Condensed: one line with a small image and the title only
     condensed?: boolean;
@@ -16,8 +16,8 @@ interface ProductItemLayoutProps {
     imageLabel?: string;
 }
 
-// Shared by the product list item and its loading skeleton so both stay in sync
-export default function ProductItemLayout({
+// Shared by the skill list item and its loading skeleton so both stay in sync
+export default function SkillItemLayout({
     title,
     description,
     badge,
@@ -26,7 +26,7 @@ export default function ProductItemLayout({
     condensed = false,
     className = "",
     imageLabel,
-}: ProductItemLayoutProps) {
+}: SkillItemLayoutProps) {
     const dim = muted ? "opacity-50" : "";
     const statusBadge = status && (
         <span className="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium bg-blue-500/15 text-blue-500">
@@ -36,8 +36,8 @@ export default function ProductItemLayout({
     if (condensed) {
         return (
             <div className={"flex flex-row items-center gap-3 " + className}>
-                <ProductImagePlaceholder className={"size-8 rounded " + dim} label={imageLabel} />
-                <div className={"min-w-0 truncate font-medium text-default " + dim} aria-label="Product name">
+                <SkillImagePlaceholder className={"size-8 rounded " + dim} label={imageLabel} />
+                <div className={"min-w-0 truncate font-medium text-default " + dim} aria-label="Skill name">
                     {title}
                 </div>
                 {statusBadge}
@@ -46,7 +46,7 @@ export default function ProductItemLayout({
     }
     return (
         <div className={"flex flex-row items-center gap-4 " + className}>
-            <ProductImagePlaceholder className={"size-20 " + dim} label={imageLabel} />
+            <SkillImagePlaceholder className={"size-20 " + dim} label={imageLabel} />
             <div className="flex flex-col items-start gap-1 min-w-0 text-default">
                 {(badge || status) && (
                     <div className="flex flex-row flex-wrap items-center gap-1 max-w-full">
@@ -58,10 +58,10 @@ export default function ProductItemLayout({
                         {statusBadge}
                     </div>
                 )}
-                <div className={"text-lg font-semibold leading-tight " + dim} aria-label="Product name">
+                <div className={"max-w-full wrap-anywhere text-lg font-semibold leading-tight " + dim} aria-label="Skill name">
                     {title}
                 </div>
-                <div className={"text-sm leading-snug text-default/60 line-clamp-2 " + dim} aria-label="Product summary">
+                <div className={"text-sm leading-snug text-default/60 line-clamp-2 " + dim} aria-label="Skill summary">
                     {description}
                 </div>
             </div>
