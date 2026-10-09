@@ -16,7 +16,7 @@ export interface Reference {
     author?: string,
     url: string
 }
-export default interface ProductInterface {
+export default interface SkillInterface {
     id: string,
     name: string,
     category: string,
@@ -24,7 +24,7 @@ export default interface ProductInterface {
     summary: string,
     // When I first came in contact with the concept, as YYYY-MM
     firstContact: string,
-    // Child products point to their parent's id
+    // Child skills point to their parent's id
     parentId?: string,
     // Content not yet reviewed and rewritten by its author
     draft?: boolean,

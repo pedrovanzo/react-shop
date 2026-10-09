@@ -7,17 +7,17 @@ import LoadingSpinnerIcon from "../loading/spinnerIcon";
 
 const REDIRECT_SECONDS = 5;
 
-interface AddToCartModalProps {
-    // What is being added, e.g. a product name or "6 JS fundamentals products"
-    productName: string;
-    // True when productName describes several products (adjusts the wording)
+interface EquipModalProps {
+    // What is being added, e.g. a skill name or "6 JS fundamentals skills"
+    skillName: string;
+    // True when skillName describes several skills (adjusts the wording)
     plural?: boolean;
     onConfirm: () => void;
     onClose: () => void;
 }
 
 // One modal instance for both steps (confirm, then added) to avoid flicker between them
-export default function AddToCartModal({ productName, plural = false, onConfirm, onClose }: AddToCartModalProps) {
+export default function EquipModal({ skillName, plural = false, onConfirm, onClose }: EquipModalProps) {
     const navigate = useNavigate();
     const [isAdded, setIsAdded] = useState(false);
     const [secondsLeft, setSecondsLeft] = useState(REDIRECT_SECONDS);
@@ -28,7 +28,7 @@ export default function AddToCartModal({ productName, plural = false, onConfirm,
         return () => clearInterval(interval);
     }, [isAdded]);
     useEffect(() => {
-        if (isAdded && secondsLeft <= 0) navigate("/cart");
+        if (isAdded && secondsLeft <= 0) navigate("/build");
     }, [isAdded, secondsLeft, navigate]);
 
     function handleConfirm() {
@@ -37,7 +37,7 @@ export default function AddToCartModal({ productName, plural = false, onConfirm,
     }
 
     return (
-        <Modal title={isAdded ? "Added to cart" : "Add to cart"} onClose={onClose}>
+        <Modal title={isAdded ? "Equipped" : "Equip"} onClose={onClose}>
             {isAdded ? (
                 <>
                     <div className="flex flex-col items-center gap-3 py-2 text-center">
@@ -46,7 +46,7 @@ export default function AddToCartModal({ productName, plural = false, onConfirm,
                             aria-hidden="true"
                         />
                         <p className="text-lg motion-safe:animate-fade-up [animation-delay:150ms]">
-                            <span className="font-semibold">{productName}</span> {plural ? "are" : "is"} in your cart!
+                            <span className="font-semibold">{skillName}</span> {plural ? "are" : "is"} equipped in your build!
                         </p>
                     </div>
                     <div
@@ -54,28 +54,28 @@ export default function AddToCartModal({ productName, plural = false, onConfirm,
                         aria-live="polite"
                     >
                         <LoadingSpinnerIcon variant="primary" />
-                        Going to your cart in {Math.max(secondsLeft, 0)}s
+                        Going to your build in {Math.max(secondsLeft, 0)}s
                     </div>
                     <div className="flex flex-row flex-wrap justify-end gap-2 motion-safe:animate-fade-up [animation-delay:300ms]">
                         <Button variant="soft" onClick={onClose}>
                             Keep browsing
                         </Button>
-                        <Button variant="primary" className="p-2 leading-none" onClick={() => navigate("/cart")}>
-                            Go to cart
+                        <Button variant="primary" className="p-2 leading-none" onClick={() => navigate("/build")}>
+                            Go to build
                         </Button>
                     </div>
                 </>
             ) : (
                 <>
                     <p>
-                        Add <span className="font-semibold">{productName}</span> to your cart?
+                        Equip <span className="font-semibold">{skillName}</span>?
                     </p>
                     <div className="flex flex-row flex-wrap justify-end gap-2">
                         <Button variant="soft" onClick={onClose}>
                             Cancel
                         </Button>
                         <Button variant="primary" className="p-2 leading-none" onClick={handleConfirm}>
-                            Add to cart
+                            Equip
                         </Button>
                     </div>
                 </>

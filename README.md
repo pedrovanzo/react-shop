@@ -1,6 +1,6 @@
 # React Shop
 
-A personal project shaped like an e-commerce, where the "products" are frontend concepts and skills instead of goods.
+Pedro Vanzo's Skill Shop: a personal project where you browse frontend concepts as skills and equip them into a build.
 
 Live: https://react-shop-alpha-sage.vercel.app/
 
@@ -60,11 +60,11 @@ A draggable button sits in a corner of every page. Click it to open the contact 
 ```
 src/
   components/   reusable UI (button, modal, list items, loading states, navbar, timeline, contact widget)
-  contexts/     React context providers (cart, theme)
-  data/         product data, history timeline, contact links
+  contexts/     React context providers (build, theme)
+  data/         skill data, history timeline, contact links
   hooks/        custom hooks (useSimulatedLoading)
-  lib/          plain helpers (feature flags, theme, favicon, product URLs)
+  lib/          plain helpers (feature flags, theme, favicon, skill URLs)
   pages/        one folder per route, entry file page.tsx
 ```
 
-There is no backend. Loading states are simulated with `useSimulatedLoading` to showcase loading feedback, and the cart is saved in `localStorage`.
+There is no backend. Loading states are simulated with `useSimulatedLoading` to showcase loading feedback, and the build (equipped skills) is saved in `localStorage`.

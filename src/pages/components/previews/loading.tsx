@@ -3,14 +3,14 @@ import PreviewGrid from "../../../components/library/previewGrid";
 import LoadingSpinner from "../../../components/loading/spinner";
 import LoadingSpinnerIcon from "../../../components/loading/spinnerIcon";
 import LoadingDash from "../../../components/loading/dash";
-import LoadingProductItemOfList from "../../../components/list/item/loadingProduct";
+import LoadingSkillItemOfList from "../../../components/list/item/loadingSkill";
 export default function LoadingPreview() {
     return (
         <PreviewGrid>
-            <PreviewCard label="LoadingSpinner (default text)" source="components/loading/spinner.tsx" usedIn="product page, full-screen document loading">
+            <PreviewCard label="LoadingSpinner (default text)" source="components/loading/spinner.tsx" usedIn="skill page, full-screen document loading">
                 <LoadingSpinner />
             </PreviewCard>
-            <PreviewCard label='LoadingSpinner (text="loading user")' source="components/loading/spinner.tsx" usedIn="product page, before the Add to cart button">
+            <PreviewCard label='LoadingSpinner (text="loading user")' source="components/loading/spinner.tsx" usedIn="skill page, before the Equip button">
                 <LoadingSpinner text="loading user" />
             </PreviewCard>
             <PreviewCard label="LoadingSpinnerIcon (variant default, size default)" source="components/loading/spinnerIcon.tsx" usedIn="unused">
@@ -28,8 +28,8 @@ export default function LoadingPreview() {
             <PreviewCard label='LoadingDash (classes="w-40")' source="components/loading/dash.tsx" usedIn="unused">
                 <LoadingDash classes="w-40" />
             </PreviewCard>
-            <PreviewCard label="LoadingProductItemOfList" source="components/list/item/loadingProduct.tsx" usedIn="products list skeleton">
-                <LoadingProductItemOfList />
+            <PreviewCard label="LoadingSkillItemOfList" source="components/list/item/loadingSkill.tsx" usedIn="skills list skeleton">
+                <LoadingSkillItemOfList />
             </PreviewCard>
         </PreviewGrid>
     );
