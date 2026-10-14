@@ -29,7 +29,7 @@ export default function SkillItemLayout({
 }: SkillItemLayoutProps) {
     const dim = muted ? "opacity-50" : "";
     const statusBadge = status && (
-        <span className="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium bg-blue-500/15 text-blue-500">
+        <span className="shrink-0 rounded-full px-2 py-0.5 text-xs font-medium bg-brand/15 text-brand">
             {status}
         </span>
     );

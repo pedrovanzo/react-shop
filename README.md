@@ -33,7 +33,7 @@ FEATURE_FLAG_MENU=true
 |---|---|---|
 | `FEATURE_FLAG_SANDBOX` | Sandbox page and its menu link | off |
 | `FEATURE_FLAG_SNAKE` | Snake game page | on |
-| `FEATURE_FLAG_MENU` | Feature flag page and its menu link | off |
+| `FEATURE_FLAG_MENU` | Feature flag demo box on the options page | off |
 
 - A flag missing from `.env` uses its default.
 - Flags are read when the dev server starts, so restart it after changing `.env`.
@@ -53,7 +53,7 @@ A draggable button sits in a corner of every page. Click it to open the contact 
 
 ## Components library
 
-`/components` previews the app's UI components, grouped by type. To add a section, add an entry to `src/pages/components/sections.ts` with a preview component from `src/pages/components/previews/`.
+The options page (`/options#components-library`) previews the app's UI components, grouped like a docs sidebar. To add a section, add an entry to a group in `src/components/library/sections.ts` with a preview component from `src/components/library/previews/`. Old `/components` links redirect there.
 
 ## Project structure
 

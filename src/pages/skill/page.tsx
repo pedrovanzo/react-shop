@@ -114,14 +114,14 @@ export default function Skill() {
                                         <Link
                                             to={{ pathname: "/build" }}
                                             title="Go to build"
-                                            className="flex flex-row items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium bg-blue-500/15 text-blue-500 transition-colors hover:bg-blue-500/25"
+                                            className="flex flex-row items-center gap-1.5 rounded-full px-3 py-1 text-sm font-medium bg-brand/15 text-brand transition-colors hover:bg-brand/25"
                                         >
                                             <GiAnvilImpact className="size-4" aria-hidden="true" />
                                             Equipped
                                         </Link>
                                         <Button
                                             variant="text"
-                                            className="transition-colors hover:text-red-500"
+                                            className="transition-colors hover:text-danger"
                                             onClick={() => setIsRemoveModalOpen(true)}
                                         >
                                             Remove topic from build

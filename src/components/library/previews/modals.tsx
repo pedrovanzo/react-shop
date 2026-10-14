@@ -1,10 +1,10 @@
 import { useState } from "react";
-import PreviewCard from "../../../components/library/previewCard";
-import PreviewGrid from "../../../components/library/previewGrid";
-import ContactModal from "../../../components/contact/contactModal";
-import EquipModal from "../../../components/build/equipModal";
-import ConfirmModal from "../../../components/modal/confirmModal";
-import Button from "../../../components/button/button";
+import PreviewCard from "../../library/previewCard";
+import PreviewGrid from "../../library/previewGrid";
+import ContactModal from "../../contact/contactModal";
+import EquipModal from "../../build/equipModal";
+import ConfirmModal from "../../modal/confirmModal";
+import Button from "../../button/button";
 export default function ModalsPreview() {
     const [openModal, setOpenModal] = useState<"contact" | "equip" | "confirm" | null>(null);
     const close = () => setOpenModal(null);

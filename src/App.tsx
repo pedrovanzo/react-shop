@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router";
-import { BuildRedirect, SkillRedirect, SkillShopRedirect } from "./components/navigation/legacyRedirects";
+import { BuildRedirect, ComponentsLibraryRedirect, FeatureFlagRedirect, SkillRedirect, SkillShopRedirect } from "./components/navigation/legacyRedirects";
 import { BuildProvider } from "./contexts/build";
 import { ThemeProvider } from "./contexts/theme";
 import Home from "./pages/home/page";
@@ -8,12 +8,11 @@ import NotFound from "./pages/notFound/page";
 import SkillShop from "./pages/skillShop/page";
 import Options from "./pages/options/page";
 import History from "./pages/history/page";
-import ComponentsLibrary from "./pages/components/page";
+import About from "./pages/about/page";
 import Skill from "./pages/skill/page";
 import Build from "./pages/build/page";
 import Snake from "./pages/snake/page";
 import Sandbox from "./pages/sandbox/page";
-import FeatureFlag from "./pages/featureFlag/page";
 import { FEATURE_FLAGS } from "./lib/featureFlags";
 import ContactWidget from "./components/contact/contactWidget";
 import ScrollToTopOnNavigate from "./components/navigation/scrollToTopOnNavigate";
@@ -37,24 +36,17 @@ function App() {
                         <Route path="/products" element={<SkillShopRedirect />} />
                         <Route path="/product/:name" element={<SkillRedirect />} />
                         <Route path="/cart" element={<BuildRedirect />} />
+                        <Route path="/feature-flag" element={<FeatureFlagRedirect />} />
                         <Route path="/history" element={<History />} />
+                        <Route path="/about" element={<About />} />
                         <Route path="/options" element={<Options />} />
-                        <Route path="/components" element={<ComponentsLibrary />} />
-                        <Route
-                            path="/components/:section"
-                            element={<ComponentsLibrary />}
-                        />
+                        <Route path="/components" element={<ComponentsLibraryRedirect />} />
+                        <Route path="/components/:section" element={<ComponentsLibraryRedirect />} />
                         {FEATURE_FLAGS.SANDBOX && (
                             <Route path="/sandbox" element={<Sandbox />} />
                         )}
                         {FEATURE_FLAGS.SNAKE && (
                             <Route path="/snake" element={<Snake />} />
-                        )}
-                        {FEATURE_FLAGS.FEATURE_FLAG_MENU && (
-                            <Route
-                                path="/feature-flag"
-                                element={<FeatureFlag />}
-                            />
                         )}
                     </Routes>
                 </BuildProvider>

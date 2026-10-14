@@ -6,7 +6,7 @@ const spinnerIconStyles = cva([], {
   variants: {
     variant: {
       default: ["border-t-default"],
-      primary: ["border-t-blue-500"],
+      primary: ["border-t-brand"],
     },
     size: {
       default: ["size-6"],

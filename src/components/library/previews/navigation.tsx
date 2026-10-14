@@ -1,11 +1,11 @@
-import PreviewCard from "../../../components/library/previewCard";
-import PreviewGrid from "../../../components/library/previewGrid";
-import Navbar from "../../../components/navigation/navbar";
+import PreviewCard from "../../library/previewCard";
+import PreviewGrid from "../../library/previewGrid";
+import Navbar from "../../navigation/navbar";
 export default function NavigationPreview() {
     return (
         <PreviewGrid>
             <PreviewCard label="Navbar" source="components/navigation/navbar.tsx" usedIn="every page">
-                <Navbar />
+                <Navbar preview />
             </PreviewCard>
         </PreviewGrid>
     );

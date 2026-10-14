@@ -63,7 +63,7 @@ export default function Build() {
                             <button
                                 type="button"
                                 onClick={() => setIsClearOpen(true)}
-                                className="text-sm text-default/60 underline transition-colors hover:text-red-500"
+                                className="text-sm text-default/60 underline transition-colors hover:text-danger"
                             >
                                 Clear build
                             </button>

@@ -42,7 +42,7 @@ export default function EquipModal({ skillName, plural = false, onConfirm, onClo
                 <>
                     <div className="flex flex-col items-center gap-3 py-2 text-center">
                         <IoCheckmarkCircle
-                            className="size-16 text-blue-500 motion-safe:animate-pop-in"
+                            className="size-16 text-brand motion-safe:animate-pop-in"
                             aria-hidden="true"
                         />
                         <p className="text-lg motion-safe:animate-fade-up [animation-delay:150ms]">

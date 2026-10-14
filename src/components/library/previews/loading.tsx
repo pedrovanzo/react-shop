@@ -1,9 +1,9 @@
-import PreviewCard from "../../../components/library/previewCard";
-import PreviewGrid from "../../../components/library/previewGrid";
-import LoadingSpinner from "../../../components/loading/spinner";
-import LoadingSpinnerIcon from "../../../components/loading/spinnerIcon";
-import LoadingDash from "../../../components/loading/dash";
-import LoadingSkillItemOfList from "../../../components/list/item/loadingSkill";
+import PreviewCard from "../../library/previewCard";
+import PreviewGrid from "../../library/previewGrid";
+import LoadingSpinner from "../../loading/spinner";
+import LoadingSpinnerIcon from "../../loading/spinnerIcon";
+import LoadingDash from "../../loading/dash";
+import LoadingSkillItemOfList from "../../list/item/loadingSkill";
 export default function LoadingPreview() {
     return (
         <PreviewGrid>

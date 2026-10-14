@@ -1,6 +1,6 @@
-import PreviewCard from "../../../components/library/previewCard";
-import PreviewGrid from "../../../components/library/previewGrid";
-import Timeline from "../../../components/timeline/timeline";
+import PreviewCard from "../../library/previewCard";
+import PreviewGrid from "../../library/previewGrid";
+import Timeline from "../../timeline/timeline";
 const sampleEntries = [
     { year: 2020, title: "Oldest entry", description: "Selected first; previous is muted." },
     { year: 2024, title: "After a gap", description: "Dashed segment when years are skipped." },

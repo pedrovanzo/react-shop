@@ -1,6 +1,7 @@
 import Navbar from "../../components/navigation/navbar";
 import ThreeColumnLayout from "../../components/layout/threeColumnLayout";
 import Timeline from "../../components/timeline/timeline";
+import PageHeader from "../../components/header/pageHeader";
 import HistoryEntry from "../../interfaces/historyEntry";
 import historyData from "../../data/history.json";
 
@@ -12,7 +13,8 @@ export default function History() {
             <Navbar />
             <ThreeColumnLayout>
                 <div className="w-full flex flex-col gap-8 text-default">
-                    <h1 className="text-2xl font-semibold tracking-tight">History</h1>
+                    {/* Same compact pattern header as the build page */}
+                    <PageHeader compact title="History" description="The years that shaped how I build, one at a time" />
                     <Timeline entries={entries} />
                 </div>
             </ThreeColumnLayout>

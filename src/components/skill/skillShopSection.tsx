@@ -46,8 +46,8 @@ function EquipActionButton({
         return (
             <span
                 className={
-                    "flex flex-row items-center gap-1 font-medium text-blue-500/70 " +
-                    (pill ? "rounded-full px-3 py-1 text-sm bg-blue-500/10" : "text-xs")
+                    "flex flex-row items-center gap-1 font-medium text-brand/70 " +
+                    (pill ? "rounded-full px-3 py-1 text-sm bg-brand/10" : "text-xs")
                 }
             >
                 <GiAnvilImpact className="size-4" aria-hidden="true" />
@@ -60,9 +60,9 @@ function EquipActionButton({
             type="button"
             onClick={onClick}
             className={
-                "flex flex-row items-center gap-1 font-medium text-blue-500 " +
+                "flex flex-row items-center gap-1 font-medium text-brand " +
                 (pill
-                    ? "rounded-full px-3 py-1 text-sm bg-blue-500/15 transition-colors hover:bg-blue-500/25"
+                    ? "rounded-full px-3 py-1 text-sm bg-brand/15 transition-colors hover:bg-brand/25"
                     : "text-xs hover:underline")
             }
         >

@@ -20,7 +20,7 @@ export const FEATURE_FLAG_DEFINITIONS = {
         envVar: "FEATURE_FLAG_MENU",
         value: import.meta.env.FEATURE_FLAG_MENU,
         defaultEnabled: false,
-        description: "Feature flag page and its menu link",
+        description: "Feature flag demo box on the options page",
     },
 } as const
 export type FeatureFlagName = keyof typeof FEATURE_FLAG_DEFINITIONS

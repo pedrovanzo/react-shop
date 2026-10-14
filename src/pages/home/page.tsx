@@ -28,7 +28,7 @@ export default function Home() {
     const heroTitleRef = useRef<HTMLElement>(null);
     const heroDescriptionRef = useRef<HTMLSpanElement>(null);
     // Header elements: the real title and description; the description crossfades from the hero text
-    const titleRef = useRef<HTMLElement>(null);
+    const titleRef = useRef<HTMLHeadingElement>(null);
     const descriptionRef = useRef<HTMLParagraphElement>(null);
     const descriptionHeroLayerRef = useRef<HTMLSpanElement>(null);
     const descriptionHeaderLayerRef = useRef<HTMLSpanElement>(null);
@@ -131,9 +131,13 @@ export default function Home() {
                 className="min-h-dvh"
                 header={
                     <header className={PAGE_HEADER_CLASS}>
-                        <PatternText ref={titleRef} as="h1" className={PAGE_HEADER_TITLE_CLASS}>
-                            Skill Shop
-                        </PatternText>
+                        {/*
+                          The morph transforms the h1 and the pattern sits on a span inside it: Firefox skips painting
+                          background-clip: text on the transformed element itself for part of the scroll
+                        */}
+                        <h1 ref={titleRef} className={PAGE_HEADER_TITLE_CLASS}>
+                            <PatternText>Skill Shop</PatternText>
+                        </h1>
                         <p ref={descriptionRef} className={`relative ${PAGE_HEADER_DESCRIPTION_CLASS}`}>
                             <span ref={descriptionHeaderLayerRef}>
                                 Browse the skills and equip them to make a build

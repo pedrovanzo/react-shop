@@ -7,7 +7,7 @@ const buttonStyles = cva([], {
     variant: {
       solid: ["p-2 rounded-md leading-none text-contrast bg-default"],
       soft: ["p-2 rounded-md leading-none text-default bg-default/10"],
-      primary: ["py-1 px-2 rounded-md bg-blue-500 text-white"],
+      primary: ["py-1 px-2 rounded-md bg-brand text-brand-foreground"],
       text: ["text-default"],
       link: ["leading-none text-default underline"],
     },
