@@ -134,12 +134,12 @@ export default function BlueprintCard({ blueprint, onMerge }: BlueprintCardProps
                     aria-label="Merge the equipped blueprints into a contact card"
                     className={cn(
                         PLOT_PANEL_CLASS,
-                        "relative cursor-pointer transition-colors hover:border-blue-500 outline-none focus-visible:border-blue-500"
+                        "relative cursor-pointer transition-colors hover:border-brand outline-none focus-visible:border-brand"
                     )}
                 >
                     {plot}
                     <LuMousePointerClick
-                        className="absolute bottom-2 right-2 size-5 text-white motion-safe:animate-pulse"
+                        className="absolute bottom-2 right-2 size-5 text-plot-label motion-safe:animate-pulse"
                         aria-hidden="true"
                     />
                 </div>
@@ -156,7 +156,7 @@ export default function BlueprintCard({ blueprint, onMerge }: BlueprintCardProps
                                 onClick={unequip}
                                 aria-label={`Remove the ${blueprint.name} blueprint's topics from the build`}
                                 title="Remove from build"
-                                className="rounded-md p-1.5 text-default/60 transition-colors hover:bg-red-500/15 hover:text-red-500"
+                                className="rounded-md p-1.5 text-default/60 transition-colors hover:bg-danger/15 hover:text-danger"
                             >
                                 <IoTrashOutline className="size-4" aria-hidden="true" />
                             </button>
@@ -168,8 +168,8 @@ export default function BlueprintCard({ blueprint, onMerge }: BlueprintCardProps
                             className={cn(
                                 "flex flex-row items-center gap-1.5 rounded-md px-3 py-1 text-sm font-medium transition-colors",
                                 isFullyEquipped
-                                    ? "cursor-default bg-blue-500/15 text-blue-500"
-                                    : "bg-default/10 text-default hover:bg-blue-500/15 hover:text-blue-500"
+                                    ? "cursor-default bg-brand/15 text-brand"
+                                    : "bg-default/10 text-default hover:bg-brand/15 hover:text-brand"
                             )}
                         >
                             <GiAnvilImpact className="size-4 shrink-0" aria-hidden="true" />
@@ -207,7 +207,7 @@ export default function BlueprintCard({ blueprint, onMerge }: BlueprintCardProps
                                 {showOverlay && (
                                     <div
                                         aria-hidden="true"
-                                        className="line-overlay pointer-events-none absolute inset-0 flex flex-row items-baseline gap-1 text-blue-500"
+                                        className="line-overlay pointer-events-none absolute inset-0 flex flex-row items-baseline gap-1 text-brand"
                                     >
                                         <SpecLine label={topic.name} value={topic.count} />
                                     </div>

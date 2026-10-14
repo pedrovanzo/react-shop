@@ -1,7 +1,7 @@
-import PreviewCard from "../../../components/library/previewCard";
-import PreviewGrid from "../../../components/library/previewGrid";
-import PageHeader from "../../../components/header/pageHeader";
-import PatternText from "../../../components/pattern/patternText";
+import PreviewCard from "../../library/previewCard";
+import PreviewGrid from "../../library/previewGrid";
+import PageHeader from "../../header/pageHeader";
+import PatternText from "../../pattern/patternText";
 export default function TypographyPreview() {
     return (
         <PreviewGrid>

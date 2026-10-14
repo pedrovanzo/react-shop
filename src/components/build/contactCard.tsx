@@ -40,7 +40,7 @@ export default function ContactCard({ blueprints, onSplit }: ContactCardProps) {
                 aria-label="Split the contact card back into blueprint cards"
                 className={cn(
                     PLOT_PANEL_CLASS,
-                    "relative cursor-pointer transition-colors hover:border-blue-500 outline-none focus-visible:border-blue-500"
+                    "relative cursor-pointer transition-colors hover:border-brand outline-none focus-visible:border-brand"
                 )}
             >
                 {/* About a third of a card's plot, stacked from lg up; in a row on narrow screens */}
@@ -55,7 +55,7 @@ export default function ContactCard({ blueprints, onSplit }: ContactCardProps) {
                         </div>
                     ))}
                 </div>
-                <LuMousePointerClick className="absolute bottom-2 right-2 size-5 text-white" aria-hidden="true" />
+                <LuMousePointerClick className="absolute bottom-2 right-2 size-5 text-plot-label" aria-hidden="true" />
             </div>
             <section className="flex flex-col gap-2 motion-safe:animate-fade-up">
                 <h4 className="text-xs font-medium uppercase tracking-widest text-default/50">Contact</h4>
@@ -68,7 +68,7 @@ export default function ContactCard({ blueprints, onSplit }: ContactCardProps) {
                                     href={href}
                                     target={isExternal ? "_blank" : undefined}
                                     rel={isExternal ? "noopener noreferrer" : undefined}
-                                    className="flex flex-row items-baseline gap-1 text-default/80 hover:text-blue-500 hover:underline"
+                                    className="flex flex-row items-baseline gap-1 text-default/80 hover:text-brand hover:underline"
                                 >
                                     <SpecLine label={label} value={detail} />
                                 </a>

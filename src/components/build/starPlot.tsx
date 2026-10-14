@@ -1,6 +1,6 @@
 // Radar ("star") plot styled after old soccer game stat screens: a dark panel, polygon rings,
-// short uppercase labels at each point, an orange shape and an optional blue one on top
-// (blue is the app's "equipped" color).
+// short uppercase labels at each point, the blueprint shape and an optional "picks" shape on top.
+// Colors are --color-plot-* theme variables (orange and blue by default; color modes remap them).
 export interface StarPlotAxis {
     // Short label drawn at the point, e.g. "REACT"
     label: string;
@@ -35,7 +35,7 @@ interface StarPlotProps {
 }
 
 // The dark, framed panel plots sit in
-export const PLOT_PANEL_CLASS = "rounded-md border-2 border-neutral-700 bg-neutral-900 p-2";
+export const PLOT_PANEL_CLASS = "rounded-md border-2 border-plot-panel-border bg-plot-panel p-2";
 
 export default function StarPlot({ axes, title, flipId, className = "" }: StarPlotProps) {
     const count = axes.length;
@@ -55,20 +55,25 @@ export default function StarPlot({ axes, title, flipId, className = "" }: StarPl
                 <polygon
                     key={ring}
                     points={polygon(axes.map(() => ring))}
-                    fill={ring === 1 ? "rgb(38 38 38)" : "none"}
-                    stroke="rgb(82 82 82)"
+                    // Colors come from theme variables (style, since SVG attributes can't read CSS variables)
+                    style={{
+                        fill: ring === 1 ? "var(--color-plot-ring-fill)" : "none",
+                        stroke: "var(--color-plot-grid)",
+                    }}
                     strokeWidth={ring === 1 ? 1.5 : 0.75}
                 />
             ))}
             {axes.map((axis, i) => {
                 const [x, y] = point(i, count, 1);
-                return <line key={axis.name} x1={0} y1={0} x2={x} y2={y} stroke="rgb(64 64 64)" strokeWidth={0.75} />;
+                return <line key={axis.name} x1={0} y1={0} x2={x} y2={y} style={{ stroke: "var(--color-plot-spoke)" }} strokeWidth={0.75} />;
             })}
             {/* Main shape */}
             <polygon
                 points={polygon(axes.map((axis) => axis.value))}
-                fill="rgb(251 146 60 / 0.25)"
-                stroke="rgb(251 146 60)"
+                style={{
+                    fill: "color-mix(in oklch, var(--color-plot-shape) 25%, transparent)",
+                    stroke: "var(--color-plot-shape)",
+                }}
                 strokeWidth={2}
                 strokeLinejoin="round"
             />
@@ -76,8 +81,7 @@ export default function StarPlot({ axes, title, flipId, className = "" }: StarPl
             {hasOverlay && (
                 <polygon
                     points={polygon(axes.map((axis) => axis.overlay ?? 0))}
-                    fill="none"
-                    stroke="rgb(96 165 250)"
+                    style={{ fill: "none", stroke: "var(--color-plot-picks)" }}
                     strokeWidth={2}
                     strokeLinejoin="round"
                 />
@@ -93,7 +97,7 @@ export default function StarPlot({ axes, title, flipId, className = "" }: StarPl
                         y={y}
                         textAnchor={anchor}
                         dominantBaseline="middle"
-                        fill="white"
+                        style={{ fill: "var(--color-plot-label)" }}
                         fontSize={11}
                         fontWeight={800}
                         letterSpacing={1}

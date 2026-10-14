@@ -1,15 +1,122 @@
-/* RED THEME */
-[data-theme-ordinal="red"] {
-  --color-primary: oklch(62.8% 0.258 29.23);
-  --color-secondary: oklch(95.53% 0.009 17.31);
+/*
+  Color modes (Options page): red, blue or green. The whole palette comes from one Tailwind color:
+  backgrounds use its lightest shade and text its darkest (swapped in dark mode), accents a mid shade.
+  Everything mixed from text and background (muted, borders, shadcn tokens, text patterns) follows on its own.
+*/
+[data-color-mode="red"] {
+  --tint-50: var(--color-red-50);
+  --tint-100: var(--color-red-100);
+  --tint-200: var(--color-red-200);
+  --tint-300: var(--color-red-300);
+  --tint-400: var(--color-red-400);
+  --tint-500: var(--color-red-500);
+  --tint-600: var(--color-red-600);
+  --tint-700: var(--color-red-700);
+  --tint-800: var(--color-red-800);
+  --tint-900: var(--color-red-900);
+  --tint-950: var(--color-red-950);
 }
-/* BLUE THEME */
-[data-theme-ordinal="blue"] {
-  --color-primary: oklch(38.21% 0.265 264.05);
-  --color-secondary: oklch(89.44% 0.027 285.84);
+[data-color-mode="blue"] {
+  --tint-50: var(--color-blue-50);
+  --tint-100: var(--color-blue-100);
+  --tint-200: var(--color-blue-200);
+  --tint-300: var(--color-blue-300);
+  --tint-400: var(--color-blue-400);
+  --tint-500: var(--color-blue-500);
+  --tint-600: var(--color-blue-600);
+  --tint-700: var(--color-blue-700);
+  --tint-800: var(--color-blue-800);
+  --tint-900: var(--color-blue-900);
+  --tint-950: var(--color-blue-950);
 }
-/* GREEN THEME */
-[data-theme-ordinal="green"] {
-  --color-primary: oklch(51.98% 0.177 142.5);
-  --color-secondary: oklch(93.59% 0.032 145.31);
+[data-color-mode="green"] {
+  --tint-50: var(--color-green-50);
+  --tint-100: var(--color-green-100);
+  --tint-200: var(--color-green-200);
+  --tint-300: var(--color-green-300);
+  --tint-400: var(--color-green-400);
+  --tint-500: var(--color-green-500);
+  --tint-600: var(--color-green-600);
+  --tint-700: var(--color-green-700);
+  --tint-800: var(--color-green-800);
+  --tint-900: var(--color-green-900);
+  --tint-950: var(--color-green-950);
+}
+
+[data-color-mode]:not([data-color-mode="default"]) {
+  --color-default: var(--tint-950);
+  --color-contrast: var(--tint-50);
+  --color-primary: var(--tint-700);
+  --color-secondary: var(--tint-200);
+  --color-brand: var(--tint-600);
+  --color-brand-foreground: var(--tint-50);
+  /* The plot keeps its dark game-screen panel, drawn in the mode's darkest shades */
+  --color-plot-panel: var(--tint-950);
+  --color-plot-panel-border: var(--tint-800);
+  --color-plot-ring-fill: var(--tint-900);
+  --color-plot-grid: var(--tint-700);
+  --color-plot-spoke: var(--tint-800);
+  --color-plot-shape: var(--tint-400);
+  --color-plot-picks: var(--tint-100);
+  --color-plot-label: var(--tint-50);
+}
+[data-theme="dark"][data-color-mode]:not([data-color-mode="default"]) {
+  --color-default: var(--tint-50);
+  --color-contrast: var(--tint-950);
+  --color-primary: var(--tint-300);
+  --color-secondary: var(--tint-800);
+  --color-brand: var(--tint-400);
+  --color-brand-foreground: var(--tint-950);
+  /* The page is already the darkest shade, so the plot panel steps one shade up to stand apart */
+  --color-plot-panel: var(--tint-900);
+  --color-plot-panel-border: var(--tint-700);
+  --color-plot-ring-fill: var(--tint-800);
+  --color-plot-grid: var(--tint-600);
+  --color-plot-spoke: var(--tint-700);
+}
+
+/*
+  Danger (remove, clear) is red by default, which disappears on a red palette. Red mode uses amber instead:
+  far enough on the color wheel to stand out from every red shade, and still read as a warning.
+  Blue and green keep red, which already contrasts with them (green and red are complementary).
+*/
+[data-color-mode="red"] {
+  --color-danger: var(--color-amber-600);
+}
+[data-theme="dark"][data-color-mode="red"] {
+  --color-danger: var(--color-amber-400);
+}
+
+/* Without a color mode, the shade scale is neutral gray (used by previews such as the Options theme card) */
+:root:not([data-color-mode]),
+[data-color-mode="default"] {
+  --tint-50: var(--color-neutral-50);
+  --tint-100: var(--color-neutral-100);
+  --tint-200: var(--color-neutral-200);
+  --tint-300: var(--color-neutral-300);
+  --tint-400: var(--color-neutral-400);
+  --tint-500: var(--color-neutral-500);
+  --tint-600: var(--color-neutral-600);
+  --tint-700: var(--color-neutral-700);
+  --tint-800: var(--color-neutral-800);
+  --tint-900: var(--color-neutral-900);
+  --tint-950: var(--color-neutral-950);
+}
+
+/*
+  Pattern titles (src/styles/patterns.css) mix text and background colors by default, which in a color mode
+  gives washed-out tints. Color modes draw the pattern straight from their palette instead: four real shades,
+  darkest to mid in light mode, lightest to mid in dark mode.
+*/
+[data-color-mode]:not([data-color-mode="default"]) .pattern-text {
+  --pattern-tone-1: var(--tint-950);
+  --pattern-tone-2: var(--tint-800);
+  --pattern-tone-3: var(--tint-600);
+  --pattern-tone-4: var(--tint-400);
+}
+[data-theme="dark"][data-color-mode]:not([data-color-mode="default"]) .pattern-text {
+  --pattern-tone-1: var(--tint-50);
+  --pattern-tone-2: var(--tint-200);
+  --pattern-tone-3: var(--tint-400);
+  --pattern-tone-4: var(--tint-600);
 }
