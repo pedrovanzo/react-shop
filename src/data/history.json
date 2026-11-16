@@ -1,62 +1,337 @@
 [
   {
-    "year": 2026,
-    "title": "Mock title for 2026",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2026",
+    "period": "2026",
+    "start": "2026",
+    "phases": [
+      "Platform Migration",
+      "Research and Development"
+    ],
+    "icon": "lab",
+    "title": "Took on R&D: from a platform migration to an internal hosting platform",
+    "summary": "The work moved from shipping pages to building the tools and platforms other teams build on.",
+    "bullets": [
+      {
+        "text": "Rebuilt {two portals|agazeta,hz} inside a third-party low-code platform, adding custom code where the editor fell short."
+      },
+      {
+        "text": "Built browser extensions for page backups and inspection; the platform later shipped one of their ideas natively.",
+        "notable": true
+      },
+      {
+        "text": "Became the developer support for a rebuilt ad team: GTM and GAM setups, a new interstitial format, and rounds of metric-driven fixes that brought each reported metric back to target.",
+        "notable": true
+      },
+      {
+        "text": "Designed and built a self-service hosting platform for the company's internal apps: one reverse proxy, a path per app, and pipelines that validate each route and roll it back on failure.",
+        "notable": true
+      },
+      {
+        "text": "Helped shape the company's AI-assisted development process: brainstorm, grill, spec, then build in vertical slices.",
+        "notable": true
+      },
+      {
+        "text": "Audited and hardened an internal AI app: single sign-on, authentication and security fixes."
+      },
+      {
+        "text": "Learned [Docker](https://www.docker.com) in a 13-level hands-on project, then built an autonomous coding loop ([Ralph loop](https://ghuntley.com/ralph/)) from scratch.",
+        "personal": true,
+        "notable": true
+      },
+      {
+        "text": "Built a ROM game emulator with AI in a day, tested against conformance ROMs.",
+        "personal": true
+      },
+      {
+        "text": "Explored building a SaaS as a side project, covering payments, internationalization, data export and deletion, compliance and deployment.",
+        "notable": true,
+        "personal": true
+      }
+    ],
+    "tags": [
+      "Docker",
+      "CI/CD pipelines",
+      "Nginx",
+      "AI-assisted development",
+      "Ad tech (GTM, GAM)",
+      "Claude Code workspace / dev tooling setup"
+    ]
   },
   {
-    "year": 2025,
-    "title": "Mock title for 2025",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2025",
+    "period": "2025",
+    "start": "2025",
+    "phases": [
+      "Taking Over Operations"
+    ],
+    "icon": "workflow",
+    "title": "Ran features end to end across {four portals|agazeta,hz,correio,romanews}",
+    "summary": "Took on more of the stack, routes, controllers and data, alongside the interface work.",
+    "bullets": [
+      {
+        "text": "Built [Roma News](https://www.romanews.com.br)'s search end to end: [Express](https://expressjs.com) route, [TypeScript](https://www.typescriptlang.org) controller, result mapping in a shared utility package, filters and pagination in the covers package, behind a feature flag.",
+        "notable": true
+      },
+      {
+        "text": "Built a fullstack filter for legal notices, led from the frontend.",
+        "notable": true
+      },
+      {
+        "text": "Ran A/B/n tests of a news feed with student teams from a tech college partnership, served to real readers.",
+        "notable": true
+      },
+      {
+        "text": "Migrated the Sass of [A Gazeta](https://www.agazeta.com.br), [HZ](https://www.agazeta.com.br/hz) and [Correio da Bahia](https://www.correio24horas.com.br) from @import to @use, and kept ad slots free of layout shift in a feed revamp."
+      },
+      {
+        "text": "Built a serverless URL shortener and its frontend.",
+        "personal": true
+      }
+    ],
+    "tags": [
+      "TypeScript",
+      "Express",
+      "Feature flags",
+      "A/B testing",
+      "SCSS (nesting, mixins, variables)"
+    ]
   },
   {
-    "year": 2024,
-    "title": "Mock title for 2024",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2024",
+    "period": "2024",
+    "start": "2024",
+    "phases": [
+      "Mentor and Maintainer"
+    ],
+    "icon": "rocket",
+    "title": "Launched a portal and shipped my first backend feature",
+    "summary": "Mentored a long-term teammate, kept {three portals|agazeta,correio,romanews} running on shared packages, and moved into backend work.",
+    "bullets": [
+      {
+        "text": "Built the [Roma News](https://www.romanews.com.br) frontend and launched it about five months after the first commit, over a weekend of live fixes."
+      },
+      {
+        "text": "Designed a design-token system for the shared packages, and planned its move to brand-neutral names with a teammate.",
+        "notable": true
+      },
+      {
+        "text": "Introduced [Tailwind](https://tailwindcss.com), [pnpm](https://pnpm.io) and a faster [gulp](https://gulpjs.com) build to the packages.",
+        "notable": true
+      },
+      {
+        "text": "Built [Correio da Bahia](https://www.correio24horas.com.br)'s virtual club card end to end, route, controller and error states: my first backend feature.",
+        "notable": true
+      },
+      {
+        "text": "Caught a misunderstood concept early in the 2024 elections project, which cost one replanning instead of a late rebuild.",
+        "notable": true
+      },
+      {
+        "text": "Mentored a third-party frontend developer for over a year: onboarding, reviews and incident protocols.",
+        "notable": true
+      },
+      {
+        "text": "Ended the static-draft handoff: from late 2024, interfaces went straight into production views."
+      }
+    ],
+    "tags": [
+      "Tailwind (utility-first, config, purge)",
+      "npm packages",
+      "Design tokens",
+      "Mentoring",
+      "Rollback / revert vs reset"
+    ]
   },
   {
-    "year": 2023,
-    "title": "Mock title for 2023",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2023",
+    "period": "2023",
+    "start": "2023",
+    "phases": [
+      "Owning Features"
+    ],
+    "icon": "palette",
+    "title": "Redesigned a portal and founded the shared component packages",
+    "summary": "Moved from drafting pages to owning features: a portal redesign, a component library and the CMS interface architecture.",
+    "bullets": [
+      {
+        "text": "Led [Correio da Bahia](https://www.correio24horas.com.br)'s redesign as its main frontend developer, including a new typography system still in production (as of Nov 16, 2026)."
+      },
+      {
+        "text": "Founded the shared component packages that every portal came to use."
+      },
+      {
+        "text": "Built the CMS interface architecture: a component sandbox with a local render server, then a full CSS refactor I proposed.",
+        "notable": true
+      },
+      {
+        "text": "Built an AI voice MVP in a company innovation program: articles read aloud in consenting employees' cloned voices, adopted by affiliate sites."
+      },
+      {
+        "text": "Prototyped AI-generated titles and descriptions in the article editor, tested company-wide.",
+        "notable": true
+      },
+      {
+        "text": "Turned vague SEO audit findings into a plan and fixed every heading-tag issue across {four portals|agazeta,hz,cbn,correio}.",
+        "notable": true
+      },
+      {
+        "text": "Pushed for documentation and wrote the team's developer onboarding guide.",
+        "notable": true
+      }
+    ],
+    "tags": [
+      "SCSS (nesting, mixins, variables)",
+      "EJS",
+      "Component libraries",
+      "Core Web Vitals",
+      "Documentation"
+    ]
   },
   {
-    "year": 2022,
-    "title": "Mock title for 2022",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2022",
+    "period": "2022",
+    "start": "2022",
+    "phases": [
+      "Design to Code",
+      "Owning Features"
+    ],
+    "icon": "code",
+    "title": "Shipped a new portal and modernized the build workflow",
+    "summary": "Turned designs into production pages across {four portals|agazeta,hz,cbn,correio}, and started fixing the workflow around them.",
+    "bullets": [
+      {
+        "text": "Helped launch [A Gazeta](https://www.agazeta.com.br)'s new frontend: article templates, page grids and typography, with the designer.",
+        "notable": true
+      },
+      {
+        "text": "Moved SCSS compilation from a GUI tool into project scripts across eight repositories; new repositories adopted it by default.",
+        "notable": true
+      },
+      {
+        "text": "Built [HZ](https://www.agazeta.com.br/hz)'s columnist template from scratch.",
+        "notable": true
+      },
+      {
+        "text": "Became the owner of the visual side of ad display after an ad overhaul: GTM and GAM setups and slots that don't shift the layout.",
+        "notable": true
+      },
+      {
+        "text": "Fine-tuned [AMP](https://amp.dev) pages by hand to fit Google's strict CSS limits until they passed validation."
+      },
+      {
+        "text": "Started the interface of the company's new in-house newsroom CMS."
+      },
+      {
+        "text": "Learned CI/CD: deploys, pipelines and rollbacks, through a move from [CircleCI](https://circleci.com) to Azure DevOps."
+      }
+    ],
+    "tags": [
+      "SCSS (nesting, mixins, variables)",
+      "AMP",
+      "Build tooling",
+      "Ad tech (GTM, GAM)",
+      "Git operations"
+    ]
   },
   {
-    "year": 2021,
-    "title": "Mock title for 2021",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2021-rede-gazeta",
+    "period": "Nov 2021",
+    "start": "2021-11",
+    "end": "2021-12",
+    "phases": [
+      "Design to Code"
+    ],
+    "icon": "briefcase",
+    "title": "Joined Rede Gazeta",
+    "summary": "Joined [Rede Gazeta](https://www.redegazeta.com.br) as interface analyst (a frontend engineer role), on the team behind [A Gazeta](https://www.agazeta.com.br), [HZ](https://www.agazeta.com.br/hz), [CBN Vitória](https://www.cbnvitoria.com.br) and the client portal [Correio da Bahia](https://www.correio24horas.com.br).",
+    "bullets": [
+      {
+        "text": "Shipped production code in my second week."
+      },
+      {
+        "text": "Started my first big build: Correio da Bahia's site-wide templates, adapted from A Gazeta's to its own identity."
+      }
+    ],
+    "tags": [
+      "Vanilla CSS (box model, specificity, flex/grid)",
+      "EJS"
+    ]
   },
   {
-    "year": 2020,
-    "title": "Mock title for 2020",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2021-inside",
+    "period": "2021",
+    "start": "2021",
+    "icon": "building",
+    "title": "Built a React admin system for a VR training platform",
+    "summary": "At [Inside Tecnologia](https://www.insidetecnologia.com.br), built on my own the admin system for their VR training platform.",
+    "bullets": [
+      {
+        "text": "Used by ArcelorMittal to track training sessions and employee scores against benchmarks; it stayed in use for years."
+      },
+      {
+        "text": "Hand-built UI, state management, simple auth and a dashboard with charts, on top of an existing REST API."
+      }
+    ],
+    "tags": [
+      "React",
+      "State",
+      "Vanilla CSS (box model, specificity, flex/grid)"
+    ]
   },
   {
-    "year": 2019,
-    "title": "Mock title for 2019",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2020",
+    "period": "2020",
+    "start": "2020",
+    "icon": "laptop",
+    "title": "Freelance, and React",
+    "summary": "One-off freelance work, while React became my study focus.",
+    "bullets": [
+      {
+        "text": "Picked up React and [TypeScript](https://www.typescriptlang.org) on my own, starting in August.",
+        "personal": true
+      }
+    ],
+    "tags": [
+      "React",
+      "TypeScript"
+    ]
   },
   {
-    "year": 2018,
-    "title": "Mock title for 2018",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
+    "id": "2017-2019",
+    "period": "2017–2019",
+    "start": "2017",
+    "end": "2019",
+    "icon": "graduation",
+    "title": "Degree in Digital Game Development",
+    "summary": "Bachelor's degree: programming, algorithms and databases, 2D art, sound design, 3D modeling and AI basics, with a minor in web development and entrepreneurship.",
+    "bullets": [
+      {
+        "text": "Built BioMar, a catalog app of local beach animals, with biology students for their final project: they wrote the science, I built and published the app. Covered by the newspaper A Tribuna (Vitória, Apr 16, 2021).",
+        "personal": true
+      }
+    ],
+    "tags": [
+      "Programming fundamentals",
+      "Algorithms",
+      "Game AI"
+    ]
   },
   {
-    "year": 2017,
-    "title": "Mock title for 2017",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
-  },
-  {
-    "year": 2011,
-    "title": "Mock title for 2011",
-    "description": "Mock description. Replace with what happened this year, in one or two sentences."
-  },
-  {
-    "year": 1993,
-    "title": "Born",
-    "description": "Mock description. Replace with what this year meant."
+    "id": "2011",
+    "period": "2011",
+    "start": "2011",
+    "icon": "sprout",
+    "title": "First lines of code",
+    "summary": "Got into coding with static HTML pages about whatever I was into at the time.",
+    "bullets": [
+      {
+        "text": "Kept teaching myself HTML, CSS and JavaScript through school, with side projects along the way.",
+        "personal": true
+      }
+    ],
+    "tags": [
+      "HTML",
+      "Vanilla CSS (box model, specificity, flex/grid)"
+    ]
   }
 ]

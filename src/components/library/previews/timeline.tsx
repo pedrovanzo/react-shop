@@ -10,7 +10,7 @@ const sampleEntries = [
 export default function TimelinePreview() {
     return (
         <PreviewGrid>
-            <PreviewCard label="Timeline" source="components/timeline/timeline.tsx" usedIn="history page">
+            <PreviewCard label="Timeline" source="components/timeline/timeline.tsx" usedIn="components library only (the history page uses a vertical list)">
                 <div className="w-full text-left">
                     <Timeline entries={sampleEntries} />
                 </div>

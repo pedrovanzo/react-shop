@@ -1,0 +1,7 @@
+{
+  "agazeta": { "name": "A Gazeta", "url": "https://www.agazeta.com.br", "note": "Rede Gazeta's news portal" },
+  "hz": { "name": "HZ", "url": "https://www.agazeta.com.br/hz", "note": "A Gazeta's entertainment section" },
+  "cbn": { "name": "CBN Vitória", "url": "https://www.cbnvitoria.com.br", "note": "Rede Gazeta's news radio" },
+  "correio": { "name": "Correio da Bahia", "url": "https://www.correio24horas.com.br", "note": "client portal" },
+  "romanews": { "name": "Roma News", "url": "https://www.romanews.com.br", "note": "client portal, from 2024" }
+}
