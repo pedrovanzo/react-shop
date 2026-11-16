@@ -42,9 +42,11 @@ export default function About() {
                             are now skills and the cart is now a build.
                         </p>
                         <p className={PARAGRAPH_CLASS}>
-                            The reshaping happened in the AI era, with AI-assisted development: I set the direction
-                            and review every change, and AI does much of the typing. It's built with React, Vite,
-                            TypeScript, Tailwind and shadcn/ui.
+                            The reshaping happened in the AI era, with a structured AI-assisted workflow. Each
+                            feature starts with a brainstorm, then a grilling session that questions every decision,
+                            then a written spec, and only then gets built in small vertical slices. I make the design
+                            and architecture calls and review every change; AI speeds up the implementation inside
+                            that frame. It's built with React, Vite, TypeScript, Tailwind and shadcn/ui.
                         </p>
                     </SettingsSection>
 

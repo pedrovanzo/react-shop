@@ -1,53 +1,98 @@
 # To-do
 
-## Build page: blueprints (shaping now)
+## Where we are (2026-10-14)
 
-Terms (2026-10-08): the app stays "Skill Shop", but the e-commerce vocabulary is gone. Products are **skills**, the cart is the **build** (the skills you equipped), and "Add" is **Equip**. Routes: `/skill-shop`, `/skill/:name`, `/build` (old `/products`, `/product/:name`, `/cart` redirect).
+The app's UI shape is done:
 
-Build icon: `GiAnvilImpact` (game-icons), used everywhere the cart icon was. Still open: the build page UI.
+- Skill Shop, skill page and build page with blueprints (PR #12)
+- Options page with color modes, the components library, and the about page (PR #13)
 
-The role presets are **blueprints** (2026-10-08), so "build" only ever means your equipped skills.
+Next is the content, which is all still mock. Order:
 
-The build page gets game-like **blueprints**:
+1. **History** (in progress)
+2. Skills
+3. Blueprints
+4. Home and contact
 
-- A blueprint is a named set of skills. Blueprints can share skills (overlaps are expected).
-- Blueprints are defined in code, not created by the user.
-- Blueprints reflect roles Pedro can play in a company. Only a few of them.
-  - Blueprints (2026-10-08): Frontend Engineer, AI-assisted Developer, Product Engineer.
-  - AI-assisted Developer: claims building with AI (Matt Pocock / aihero.dev style: specs, tickets, agent loops, human review). Building AI into products is only mentioned as studied, plus one LLM feature shipped to production at work, described generically (never name or detail the company project).
-  - Product Engineer replaces "Entrepreneur": mostly product thinking inside a team (owning outcomes, deciding what to build), plus some 0-to-1 building.
-  - No backend blueprint: backend work was real and reached production, but out of necessity, never the focus. Claiming a backend role is too much of a stretch.
-- Each blueprint shows:
-  - a title
-  - a description
-  - its composition: the list of skills that make it up
-- The build keeps its free list of equipped skills. The build page also gets a blueprints section: each blueprint shows how much of it the build covers and can equip its missing skills.
-- Blueprint layout follows the skill page header: placeholder image on the left, title and description on the right, the blueprint's requirements below.
-- No coverage, ranks or choices to make: the page shows the builds that exist, based on the skills Pedro has. Skill Shop and the build page are two perspectives on the same data: Skill Shop per skill, the build page per skillset and what it aims to achieve.
-- Equip stays (2026-10-08), as a nod to the original shop concept: the visitor's equipped skills (their build) act as highlighted picks across both pages. Skill Shop marks them Equipped; each blueprint card marks which of its skills the visitor equipped ("uses 3 of your picks"). No ranks or scores. Skills are equipped by topic (2026-10-08): no per-skill equip button in the list; topic headers are emphasized and carry "Equip topic"; the skill page's button is "Equip topic" too and equips the skill's whole topic ("Remove topic from build" removes it). Skill Shop opens in the By topic view by default. The build page only removes whole topics ("Remove topic") or everything ("Clear current build"), never single skills.
-- First glimpse built (2026-10-08): three blueprint cards (mock content in `src/data/blueprints.ts`) and, below, "Your build" grouped by topic with compact skill rows (links), Remove topic per group and Clear current build.
-- Blueprints are made of topics (2026-10-08), labeled "Skills" on the card. Card: header, a star plot of its topics (each point a topic; the topic with the most skills is the strongest point; the visitor's equipped topics drawn on top in blue, a nod to an old soccer game's stat screen), then the topics as a spec list ("React ........ 8", linking to the Skill Shop filtered by that topic), then work goals.
-- Card update (2026-10-08): the list is labeled "Blueprint"; work goals are hidden (data kept in `blueprints.ts`). Each card has an Equip button (equips all its topics) that becomes Equipped (hover: Remove, click removes its topics). Equipping fills each topic line with blue, one after another, like a game life bar (shake while filling, white flash when full); removing drains them. The plot's blue shape follows the lines axis by axis.
-- The build page has a compact pattern header ("Build": "Different blueprints for different roles that compose my build"), like the stuck Skill Shop header, not sticky. No "Blueprints" heading and no "Your build" list (2026-10-08); "Clear build" sits at the header's right. The final action is the contact card (2026-10-08): on a fully equipped card the plot panel shows a pointer icon and becomes clickable; clicking it merges the cards into one "Pedro Vanzo" card (profile photo, the fully equipped blueprints' plots stacked smaller, and the contact links as spec lines under "Contact"), hiding incomplete cards. Clicking the merged plot area splits it back. The transition is staggered (`src/lib/mergeTransition.ts`): merging starts the plots at 0 (0.8s) and the cards 0.3s later (0.9s, sliding into the contact card while fading); splitting starts the cards at 0 and the plots 0.3s later. Card buttons: "Equip" (becomes a disabled "Equipped" when complete) plus a trash button when any topic is equipped. The leftover space stays empty for now.
-- The navbar sticks to the top on every page (trial, to get a feel for it); sticky sidebars and the Skill Shop header sit below it.
-- First glimpse of the UI (not shaped yet): a card per build with its name, the skills it uses, and its work goals (what can be achieved with it). That is the "core plus bonus": skills used, plus goals.
-- Replaces the `$--` price placeholders and the item count.
+Wording rule: the app is a showcase of the topics covered over a career. Keep its copy neutral.
 
-## Skills: add the "Also Touched" stacks
+## 1. History (in progress)
 
-`~/Desktop/dstudy/thesaurus/scope.md` has an "Also Touched" section (Python, C#, PHP, Angular, Postgres, Docker, ...) that isn't in `src/data/skillsList.json` yet. Only the core sections were turned into skills. Add them as skills, likely in their own topic, when the skill content is revised.
+The history page maps the years first, the big picture before the details. Each entry lists what was covered; the topics it surfaces later land in the Skill Shop list.
 
-Open question from scope.md: Docker may belong outside "Also Touched".
+- One timeline entry per year, or one entry for condensed years. Exception: 2021 gets two entries (Inside Tecnologia, then the Rede Gazeta start on Nov 22).
+- Company names may be used.
+- A private, more detailed career map is kept outside this repo. Only short, neutral lines move into `src/data/history.json`.
+- MVP layout: expandable year entries (summary that opens into detail bullets), plus a timeless Highlights section. Revisit the layout once the first complete version exists.
 
-Naming rule: skills about AI tooling are always labeled "AI skills" or "LLM skills" (whichever fits), never just "skills", so they don't blur with the Skill Shop's skills (e.g. Claude Code skills are "AI skills").
+Timeline so far:
 
-Some of these were used well into production (backend work in particular), not just hello-worlds. The skills should be able to say so, e.g. a per-skill depth like "tried" vs "used in production".
+- 1993: born.
+- 2011: got interested in coding; static HTML hello-world pages about topics of interest at the time.
+- 2017–2019 (one entry): bachelor's degree in Digital Game Development: programming basics, 2D art, sound design, 3D modeling, artificial intelligence and related topics.
+- 2020: one-off freelance jobs.
+- 2021: frontend development at Inside Tecnologia.
+- Nov 2021 to now: Rede Gazeta, interface analyst (frontend engineer). One entry per year, not condensed. Details being gathered.
+
+After that, the missing pieces: side projects (this app, gamerev, dralph, ddemo), courses and case studies.
+
+Later idea, after the History content is done (not now): a **montage**, like the opening credits of Spider-Man (2002). Fast cuts from page to page, each showing one term or a very short sentence from an era's best moments (no pictures). Opens from the History page as a modal or its own page. Likely built with Motion (motion.dev). Just for fun; it doesn't need to serve any other purpose.
+
+Later idea, same status as the montage: **a searchable career history (RAG)**. Put the history in a vector database and ask questions about it in natural language. Source: only the refined, public entries (the private notes stay out). A way to explore RAG hands-on: a short learning project in the spirit of ddemo, attached to this app, using the `claude` CLI like the recent tools. It may or may not become a feature of the History page.
+
+## 2. Skills
+
+All 36 skills in `src/data/skillsList.json` are mock or draft.
+
+- The fresh topic definitions **add to** the current list rather than replace it. Topics may be moved around afterwards.
+- Add the "Also Touched" stacks (Python, C#, PHP, Angular, Postgres, Docker, ...), likely in their own topic.
+- Some were used well into production (backend work in particular), so a skill should be able to show its depth, e.g. "tried" vs "used in production".
+- Open question: Docker may belong outside "Also Touched".
+- Naming rule: skills about AI tooling are always "AI skills" or "LLM skills", never just "skills", so they don't blur with the Skill Shop's skills.
+
+## 3. Blueprints
+
+`src/data/blueprints.ts` is mock. Three blueprints, each a set of topics:
+
+- **Frontend Engineer**
+- **AI-assisted Developer**: building with AI (Matt Pocock / aihero.dev style: specs, tickets, agent loops, human review). Building AI into products is only mentioned as studied, plus one LLM feature shipped to production, described generically (never name or detail the project).
+- **Product Engineer**: product thinking inside a team (owning outcomes, deciding what to build), plus some 0-to-1 building.
+
+No backend blueprint: backend work was real and reached production, but out of necessity, never the focus.
+
+Self-definition, checked against git across all eras: a frontend engineer focused on UI and UX, who ships end-to-end features when needed (routes, controllers, integrations) and owns build and CI tooling. Frontend is about 80% of the work, tooling and DevOps about 15%, backend under 10%. Use "fullstack" only with a qualifier ("frontend-leaning", "end-to-end features"), never as the headline. Shape the blueprints from this.
+
+## 4. Home and contact
+
+- Real profile photo (hero, and the contact card on the build page).
+- Hero copy: "Browse the frontend concepts I work with every day." is a placeholder.
+- CV PDF: put it in `public/` and turn on `CV_DOWNLOAD` in `src/data/contactLinks.ts`.
+- Instagram and Facebook links are still mock: make them real or remove them.
 
 ## Evidence repos: make dralph and ddemo public
 
-Both are private on GitHub and are the main evidence for the AI-assisted Developer build. Before switching them to public:
+Both are private on GitHub and are the main evidence for the AI-assisted Developer blueprint. Before switching them to public:
 
 - `~/Desktop/dralph`: review contents for private information.
 - `~/Desktop/ddemo`: review contents for private information. 8 tracked files mention Cloud Run URLs, service account names and GCP project IDs; remove or genericize them.
 - Run a secret scanner over the full git history of both (e.g. `gitleaks detect`).
 - Then link them from the build (`gamerev`, already public, exists to test dralph).
+
+## Close the test gap
+
+Tests were never a focus, so build them and learn them at the same time. Order: react-shop, then ddemo, then the rest.
+
+1. **react-shop**
+   - Skill Shop: add a "Testing" skill under "Engineering practices", marked as in progress until the work below lands.
+   - Vitest + React Testing Library. Start with the pure functions in `src/lib` (`skillSort`, `featureFlags`, `skillPath`, `blueprintPlot`, `mergeTransition`), then the build and theme contexts (equip/remove, `localStorage`).
+   - Data checks: unique skill ids, every skill's topic is known, blueprints only reference topics that exist.
+   - One Playwright test (equip a topic, see it on the build page), plus GitHub Actions running the tests on every PR.
+2. **ddemo**: CI smoke test (build the image, start Compose with Postgres, call a health endpoint, guestbook write and read), plus checks that migrations apply and rollbacks work.
+3. **The rest**: endorse-backend test-first from its ADRs; dralph with `bats` + `shellcheck` (patches get exported, the mount is never written to); blp-next Firestore rules on the emulator; agtdemo rate limit and killswitch with pytest; gamerev coverage report + one test on the static build.
+
+Learn along the way: unit vs integration vs e2e, test pyramid vs trophy, mocks vs fakes, flaky tests, why coverage isn't the goal.
+
+## Later (technical, optional)
+
+- Bundle over 500 kB: split it with dynamic imports.
+- `FEATURE_FLAG_MENU` now gates the demo box on the options page; the name could be updated.

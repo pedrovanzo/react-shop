@@ -1,0 +1,129 @@
+{
+  "headline": "Frontend engineer focused on UI and UX. I ship end-to-end features when needed, and own the build and CI tooling around them.",
+  "highlightsIntro": "Many of these ran in production for years, where money or decisions happen: ads, paywalls, club cards, whole portal frontends. Several started the same way: little context, important work in flight, and taking over the operation.",
+  "highlights": [
+    {
+      "id": "leadership",
+      "icon": "users",
+      "title": "Leadership and mentoring",
+      "period": "2023–2025",
+      "summary": "Led and mentored the third-party frontend developers who joined the team, one of them for over a year.",
+      "bullets": [
+        "Onboarded them to the team's standards and legacy codebases, with daily syncs and pull request reviews.",
+        "Taught incident handling across development, homologation and production, and handed over real ownership as they grew.",
+        "Shared a git and conflict study that improved how we worked as a pair."
+      ],
+      "tags": [
+        "Mentoring",
+        "Code review",
+        "Conflict resolution"
+      ]
+    },
+    {
+      "id": "hosting-platform",
+      "icon": "server",
+      "title": "Internal hosting platform",
+      "period": "2026",
+      "summary": "Designed and built a self-service platform to host the company's internal apps, from the first idea to the first live apps.",
+      "bullets": [
+        "One reverse proxy and one port: each app gets its own path and container, published by its own pipeline.",
+        "Routes are validated before going live and roll back automatically on failure.",
+        "Aligned management and infrastructure to make it happen; the first apps run on it, and more teams are lined up.",
+        "A clean-room public version is in progress: [drail](https://github.com/pedrovanzo/drail)."
+      ],
+      "tags": [
+        "Docker",
+        "Nginx",
+        "CI/CD pipelines"
+      ]
+    },
+    {
+      "id": "ai-multiplier",
+      "icon": "sparkles",
+      "title": "AI as a multiplier",
+      "period": "2026",
+      "summary": "The point where AI became a multiplier: faster learning, faster delivery, wider reach.",
+      "bullets": [
+        "Learned [Docker](https://www.docker.com) in a 13-level hands-on project, which became the base of the hosting platform.",
+        "Built an autonomous coding loop ([Ralph loop](https://ghuntley.com/ralph/)) from scratch, sandboxed in a container, and a game review app to exercise it.",
+        "Work the same way every time: brainstorm, grill, spec, then build in vertical slices with AI, reviewing every change."
+      ],
+      "tags": [
+        "AI-assisted development",
+        "Docker",
+        "Claude Code workspace / dev tooling setup"
+      ]
+    },
+    {
+      "id": "shared-packages",
+      "icon": "package",
+      "title": "Shared component packages and design tokens",
+      "period": "2023–2025",
+      "summary": "Founded and owned the architecture of the shared component packages behind [A Gazeta](https://www.agazeta.com.br), [HZ](https://www.agazeta.com.br/hz), [Correio da Bahia](https://www.correio24horas.com.br) and [Roma News](https://www.romanews.com.br).",
+      "bullets": [
+        "Built the first full component set: site chrome and article building blocks.",
+        "Designed a design-token system so one package could style every portal, then planned its move to brand-neutral names with a teammate.",
+        "Introduced [Tailwind](https://tailwindcss.com) and a faster build; the packages still run Correio da Bahia and Roma News in production (as of Nov 16, 2026).",
+        "Checkable in public archives: the token classes show up in the portals' pages, e.g. [Roma News, Jul 2024](https://web.archive.org/web/20240702203345/https://romanews.com.br/) (the original brand names), [Correio da Bahia, Nov 2024](https://web.archive.org/web/20241101000917/https://correio24horas.com.br/) (after the rename) and [A Gazeta, Mar 2026](https://web.archive.org/web/20260301000239/https://agazeta.com.br/)."
+      ],
+      "tags": [
+        "npm packages",
+        "Design tokens",
+        "Tailwind (utility-first, config, purge)"
+      ]
+    },
+    {
+      "id": "ad-tech",
+      "icon": "megaphone",
+      "title": "Stepping into ad-tech ownership",
+      "period": "2022–2026",
+      "summary": "Years of ad and Core Web Vitals work paid off when the ad-tech setup was left without an owner.",
+      "bullets": [
+        "Hundreds of ad-related changes across nine repositories: one base set of CSS rules tailored to each portal, with reserved slot heights to avoid layout shift.",
+        "Fine-tuned [AMP](https://amp.dev) pages by hand until they passed Google's validation.",
+        "In 2026, became the developer support for a rebuilt ad team: GTM and GAM setups, a new interstitial format and metric-driven fixes."
+      ],
+      "tags": [
+        "Ad tech (GTM, GAM)",
+        "Core Web Vitals",
+        "AMP"
+      ]
+    },
+    {
+      "id": "correio-redesign",
+      "icon": "newspaper",
+      "title": "Correio da Bahia redesign",
+      "period": "2023",
+      "summary": "Led the redesign of [Correio da Bahia](https://www.correio24horas.com.br)'s portal as its main frontend developer, from the client's intentions to the cutover.",
+      "bullets": [
+        "Turned non-technical requests from the newspaper's staff into development decisions, with the designer.",
+        "Proposed and iterated a new typography system until it was approved; it's still in production (as of Nov 16, 2026).",
+        "Delegated smaller tasks to a paired developer."
+      ],
+      "tags": [
+        "SCSS (nesting, mixins, variables)",
+        "EJS"
+      ]
+    },
+    {
+      "id": "ai-voice-mvp",
+      "icon": "audio",
+      "title": "AI voice MVP",
+      "period": "2023",
+      "summary": "Came up with an AI voice solution in a company innovation program and built the MVP.",
+      "bullets": [
+        "Showed a cloned voice reading an article; compliance was notified first, and only consenting employees' voices were used.",
+        "Affiliate sites without enough staff to voice their articles adopted the solution."
+      ],
+      "tags": [
+        "AI prototyping"
+      ]
+    }
+  ],
+  "lessons": [
+    "In a product as large as a CMS there's no small scope: time spent scoping costs less than patching later.",
+    "Not all debt is technical: disorganized requirements create planning debt, and code can't pay it off.",
+    "Shared packages need shared rules: with three businesses on one package, one portal's change hits the other two.",
+    "One package manager, one lockfile: mixed setups only show their drift on a broken deploy."
+  ]
+}
